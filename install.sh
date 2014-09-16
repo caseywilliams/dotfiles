@@ -8,8 +8,12 @@ MAC="osx"
 link_file()
 {
   if [ -f $HOME/.$1 ]; then
-    echo "Backing up your existing .$1 to .$1.original..."
-    mv $HOME/.$1 $HOME/$1.original
+    if [ -L $HOME/.$1 ]; then
+      unlink $HOME/.$1
+    else
+      echo "Backing up your existing .$1 to .$1.original..."
+      mv $HOME/.$1 $HOME/.$1.original
+    fi
   fi
   ln -s $PWD/$1 $HOME/.$1
 }
