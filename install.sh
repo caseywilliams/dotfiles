@@ -19,9 +19,6 @@ link_file()
   ln -s $PWD/$1 $HOME/.$1
 }
 
-
-echo "Setting up dotfiles..."
-
 for file in $GEN; do
   link_file $file
 done

@@ -1,7 +1,8 @@
+fpath=($HOME/.dotfiles/zsh $fpath)
+
 # Set up the prompt
-autoload -Uz promptinit
-promptinit
-prompt adam1
+autoload -U promptinit && promptinit
+prompt pure
 
 setopt histignorealldups sharehistory
 

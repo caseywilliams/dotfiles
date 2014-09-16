@@ -21,6 +21,7 @@ endfunction
 if !isdirectory(expand("$HOME/.vim/_cache"))
   call mkdir(expand("$HOME/.vim/_cache"))
 endif
+syntax on
 set expandtab
 set smarttab
 set tabstop=2
