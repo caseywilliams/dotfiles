@@ -18,6 +18,9 @@ link_file()
   ln -s $PWD/$1 $HOME/.$1
 }
 
+
+echo "Setting up dotfiles..."
+
 for file in $GEN; do
   link_file $file
 done
@@ -37,6 +40,19 @@ if [ `uname -s` = 'Linux' ]; then
   for file in $LINUX; do
     link_file $file
   done
+fi
+
+if [ ! -d $HOME/.nvm ]; then
+  read -p "Want to install NVM? (yn) " yn
+  case $yn in
+    [Yy]* )
+      git clone https://github.com/creationix/nvm.git $HOME/.nvm
+      cd $HOME/.nvm
+      git checkout `git describe --abbrev=0 --tags` 1> /dev/null
+      cd - 1> /dev/null
+      ;;
+    * ) exit;;
+  esac
 fi
 
 echo "Done"

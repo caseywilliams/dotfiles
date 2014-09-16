@@ -1,13 +1,7 @@
-fpath=( "$HOME/.zfunctions" $fpath )
-
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
-if [ ! -d $HOME/.zfunctions/pure-prompt ]; then
-  prompt adam1
-else
-  prompt pure
-fi
+prompt adam1
 
 setopt histignorealldups sharehistory
 
