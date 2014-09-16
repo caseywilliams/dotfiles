@@ -1,9 +1,10 @@
 #!/bin/sh
 # Uhh this is the first shell script I've written in like, years
 
-GEN="zshrc vimrc"
+GEN="zshrc vimrc profile"
 LINUX="xresources"
 MAC="osx"
+NOLINK="gitconfig"
 
 link_file()
 {
@@ -24,6 +25,27 @@ echo "Setting up dotfiles..."
 for file in $GEN; do
   link_file $file
 done
+
+for file in $NOLINK; do
+  if [ -f $HOME/.$file ]; then
+    if [ -L $HOME/.$1 ]; then
+      unlink $HOME/.$1
+    else
+      echo "Backing up your existing .$file to .$file.original..."
+      mv $HOME/.$file $HOME/.$file.original
+    fi
+  fi
+  cp $file $HOME/.$file
+done
+
+read -p "Do you want to set your git email? (y/n) " yn
+case $yn in
+  [Yy]* )
+    read -p "Okay, which address do you want to use? " address
+    git config --global user.email $address
+    ;;
+  *) ;;
+esac
 
 if [ ! -d $HOME/.vim ]; then
   mkdir $HOME/.vim

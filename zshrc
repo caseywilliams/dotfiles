@@ -47,6 +47,7 @@ case `uname` in
     ;;
   Darwin)
     alias ls="ls -FG"
+    source /opt/boxen/env.sh
     ;;
 esac
 

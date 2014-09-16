@@ -1,0 +1,29 @@
+[user]
+  name = Casey Williams
+  email = cwillia5@gmail.com
+
+[core]
+  excludesfile = ~/.gitignore
+
+[color]
+  branch = auto
+  status = auto
+  interactive = auto
+  diff = auto
+  ui = auto
+
+[alias]
+  ci = commit
+  su = submodule update --init --recursive
+  co = checkout
+  br = branch
+  lg = log -p
+  l = log -p
+  st = status
+
+# Mac stuff
+[hub]
+  protocol = https
+
+[credential]
+  helper = /opt/boxen/bin/boxen-git-credential

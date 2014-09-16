@@ -89,12 +89,15 @@ if has('gui_running')
   set guioptions+=t
   set guioptions-=T
 
-  if s:is_macvim
-    set gfn=Ubuntu_Mono:h14
-    set transparency=2
+  if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname == "Darwin"
+      set gfn=Ubuntu_Mono:h14
+      set transparency=2
+    endif
   endif
 
-  if s:is_windows
+  if has("win32") || has("win16")
     set gfn=InputMono_Light:h9:cANSI
   endif
 
