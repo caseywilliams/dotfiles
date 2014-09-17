@@ -21,7 +21,6 @@ endfunction
 if !isdirectory(expand("$HOME/.vim/_cache"))
   call mkdir(expand("$HOME/.vim/_cache"))
 endif
-syntax on
 set expandtab
 set smarttab
 set tabstop=2
@@ -47,6 +46,7 @@ set backspace=indent,eol,start
 set autoindent
 set shiftround
 set scrolloff=1
+set sidescrolloff=5
 set scrolljump=5
 set display+=lastline
 set wildmenu
@@ -70,6 +70,25 @@ set laststatus=2
 set noshowmode
 set foldmethod=manual
 let &colorcolumn=80
+set complete-=i
+set ttimeout
+set ttimeoutlen=100
+set ruler
+if has('path_extra')
+  setglobal tags-=./tags tags^=./tags;
+endif
+set history=1000
+set tabpagemax=50
+set viminfo^=!
+set sessionoptions-=options
+inoremap <C-U> <C-G>u<C-U>
+
+if has('autocmd')
+  filetype plugin indent on
+endif
+if has ('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
 "
 " go back to previous position of cursor if any
 autocmd BufReadPost *
