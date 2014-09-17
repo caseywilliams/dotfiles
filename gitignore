@@ -1,0 +1,9 @@
+*.swp
+*.log
+.grunt
+node_modules
+bower_components
+.bundle
+Gemfile.lock
+.DS_Store
+.idea

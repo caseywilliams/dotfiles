@@ -1,7 +1,7 @@
 #!/bin/sh
 # Uhh this is the first shell script I've written in like, years
 
-GEN="zshrc vimrc profile"
+GEN="zshrc vimrc profile gitignore"
 LINUX="xresources"
 MAC="osx"
 NOLINK="gitconfig"
@@ -48,6 +48,11 @@ if [ ! -d $HOME/.vim ]; then
   mkdir $HOME/.vim
 fi
 cp -r vim/snippets $HOME/.vim/
+
+if [ ! -d $HOME/.vim/autoload ]; then
+  mkdir -p $HOME/.vim/autoload
+fi
+curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 if [ `uname -s` = 'Darwin' ]; then
   for file in $MAC; do

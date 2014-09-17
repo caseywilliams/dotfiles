@@ -1,6 +1,5 @@
 [user]
   name = Casey Williams
-  email = cwillia5@gmail.com
 
 [core]
   excludesfile = ~/.gitignore

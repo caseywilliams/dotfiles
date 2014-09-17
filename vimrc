@@ -147,28 +147,23 @@ set noswapfile
 
 " End Basic Vim Settings ----------------------------------
 
-" Start NeoBundle Setup------------------------------------
+" Start Plugin Setup------------------------------------
 if has('vim_starting')
   set nocompatible
-  set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#begin(expand('$HOME/.vim/bundle'))
+call plug#begin('~/.vim/plugged')
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My plugins
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'Shougo/neocomplcache.vim'
-NeoBundle 'Shougo/vimproc.vim', {
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-signify'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/neocomplcache.vim'
+Plug 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
       \     'cygwin' : 'make -f make_cygwin.mak',
@@ -176,44 +171,37 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'vim-scripts/CycleColor'
-NeoBundle 'zeis/vim-kolor'
+Plug 'Shougo/vimshell'
+Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'flazz/vim-colorschemes'
+Plug 'bling/vim-airline'
+Plug 'vim-scripts/CycleColor'
+Plug 'zeis/vim-kolor'
 
 " Lazy bundles
-NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
-NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
-NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
-NeoBundleLazy 'ap/vim-css-color', {'autoload':{'filetypes':['css','scss','sass','less','styl']}}
-NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
-NeoBundleLazy 'wavded/vim-stylus', {'autoload':{'filetypes':['styl']}}
-NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
-NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
-NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
-NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
+Plug 'groenewege/vim-less', {'for':'less'}
+Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
+Plug 'hail2u/vim-css3-syntax', {'for': ['css','scss','sass'] }
+Plug 'ap/vim-css-color', {'for':['css','scss','sass','less','styl']}
+Plug 'othree/html5.vim', {'for':['html']}
+Plug 'wavded/vim-stylus', {'for':['styl']}
+Plug 'digitaltoad/vim-jade', {'for':['jade']}
+Plug 'juvenn/mustache.vim', {'for':['mustache']}
+Plug 'gregsexton/MatchTag', {'for':['html','xml']}
+Plug 'pangloss/vim-javascript', {'for':['javascript']}
+Plug 'maksimr/vim-jsbeautify', {'for':['javascript']}
+Plug 'leafgarland/typescript-vim', {'for':['typescript']}
+Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
+Plug 'mmalecki/vim-node.js', {'for':['javascript']}
+Plug 'leshill/vim-json', {'for':['javascript','json']}
+Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','ls','typescript']}
 
 " Work stuff
-NeoBundleLazy 'webgefrickel/vim-typoscript', {'autoload':{'filetypes':['typoscript','text']}}
+Plug 'webgefrickel/vim-typoscript', {'for':['typoscript','text']}
 
-
-
-
-call neobundle#end()
-filetype plugin indent on
-
-" Install prompt on startup
-NeoBundleCheck
-" End NeoBundle Setup--------------------------------------
+call plug#end()
+" End Plugin Setup--------------------------------------
 
 " Plugin settings -----------------------------------------
 nnoremap <silent> <leader>fjs :call JsBeautify()<cr>
