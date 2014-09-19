@@ -217,6 +217,7 @@ Plug 'zeis/vim-kolor'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'joonty/vdebug'
+Plug 'vim-scripts/Tab-Name'
 
 " Lazy bundles
 Plug 'groenewege/vim-less', {'for':'less'}
