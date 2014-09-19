@@ -193,7 +193,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -251,6 +251,9 @@ let g:neocomplcache_temporary_dir=s:get_cache_dir('neocomplcache')
 let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+
+nmap <Leader>rh <Plug>GitGutterRevertHunk
+nmap <Leader>sh <Plug>GitGutterStageHunk
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
