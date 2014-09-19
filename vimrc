@@ -218,6 +218,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'joonty/vdebug'
 Plug 'vim-scripts/Tab-Name'
+Plug 'rking/ag.vim'
 
 " Lazy bundles
 Plug 'groenewege/vim-less', {'for':'less'}
@@ -231,7 +232,6 @@ Plug 'juvenn/mustache.vim', {'for':['mustache']}
 Plug 'gregsexton/MatchTag', {'for':['html','xml']}
 Plug 'pangloss/vim-javascript', {'for':['javascript']}
 Plug 'maksimr/vim-jsbeautify', {'for':['javascript']}
-Plug 'leafgarland/typescript-vim', {'for':['typescript']}
 Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
 Plug 'mmalecki/vim-node.js', {'for':['javascript']}
 Plug 'leshill/vim-json', {'for':['javascript','json']}
