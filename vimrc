@@ -82,6 +82,23 @@ set tabpagemax=50
 set viminfo^=!
 set sessionoptions-=options
 inoremap <C-U> <C-G>u<C-U>
+nnoremap <C-h> <C-W><C-h>
+nnoremap <C-l> <C-W><C-l>
+nnoremap <C-j> <C-W><C-j>
+nnoremap <C-k> <C-W><C-k>
+nnoremap j gj
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <left> :bprev<CR>
+nnoremap <right> :bnext<CR>
+nnoremap <up> :tabnext<CR>
+nnoremap <down> :tabprev<CR>
+
+" I don't want to do this, but I have to
+autocmd FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
+autocmd FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
+autocmd FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
+autocmd FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
 
 if has('autocmd')
   filetype plugin indent on
@@ -89,7 +106,7 @@ endif
 if has ('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
-"
+
 " go back to previous position of cursor if any
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -197,6 +214,9 @@ Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'vim-scripts/CycleColor'
 Plug 'zeis/vim-kolor'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'joonty/vdebug'
 
 " Lazy bundles
 Plug 'groenewege/vim-less', {'for':'less'}
@@ -237,12 +257,23 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expan
 imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 
-nnoremap <C-h> <C-W><C-h>
-nnoremap <C-l> <C-W><C-l>
-nnoremap <C-j> <C-W><C-j>
-nnoremap <C-k> <C-W><C-k>
-nnoremap j gj
-vnoremap < <gv
-vnoremap > >gv
+let g:vdebug_options= {
+\    "port" : 9000,
+\    "server" : 'localhost',
+\    "timeout" : 20,
+\    "on_close" : 'detach',
+\    "break_on_open" : 1,
+\    "ide_key" : 'PHPSTORM',
+\    "path_maps" : {},
+\    "debug_window_level" : 0,
+\    "debug_file_level" : 0,
+\    "debug_file" : "",
+\    "watch_window_style" : 'expanded',
+\    "marker_default" : '⬦',
+\    "marker_closed_tree" : '▸',
+\    "marker_open_tree" : '▾'
+\}
+
+
 
 colorscheme kolor
