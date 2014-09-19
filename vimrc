@@ -219,6 +219,7 @@ Plug 'tpope/vim-surround'
 Plug 'joonty/vdebug'
 Plug 'vim-scripts/Tab-Name'
 Plug 'rking/ag.vim'
+Plug 'mtth/scratch.vim'
 
 " Lazy bundles
 Plug 'groenewege/vim-less', {'for':'less'}
@@ -253,6 +254,8 @@ let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 
+nmap <Leader>ss :Scratch<CR>
+
 nmap <Leader>rh <Plug>GitGutterRevertHunk
 nmap <Leader>sh <Plug>GitGutterStageHunk
 
@@ -277,7 +280,5 @@ let g:vdebug_options= {
 \    "marker_closed_tree" : '▸',
 \    "marker_open_tree" : '▾'
 \}
-
-
 
 colorscheme kolor
