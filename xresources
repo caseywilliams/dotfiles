@@ -1,4 +1,4 @@
-URxvt.font: xft:Ubuntu Mono:pixelsize=10
+URxvt.font: xft:InputMonoCondensed:pixelsize=17
 URxvt.letterSpace:-1
 Xft.dpi: 96
 Xft.antialias: true
@@ -15,7 +15,7 @@ URxvt*scrollBar: false
 URxvt.cursorUnderline: false
 URxvt*borderLess: false
 URxvt*depth:32
-URxvt*background: rgba:0000/0000/0000/cccc
+URxvt*background: rgba:0000/0000/0000/bbbb
 !URxvt*background: #e9dabb
 
 ! Perl stuff

@@ -139,7 +139,7 @@ if has('gui_running')
   endif
 
   if has('gui_gtk')
-    set gfn=Ubuntu\ Mono\ 11
+    set gfn=Input\ Mono\ Condensed\ 12
   endif
 else
   if $COLORTERM == 'gnome-terminal'
