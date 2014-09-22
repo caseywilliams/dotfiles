@@ -218,7 +218,8 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'joonty/vdebug'
 Plug 'vim-scripts/Tab-Name'
-Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
+Plug 'vim-scripts/nerdtree-ack'
 Plug 'mtth/scratch.vim'
 
 " Lazy bundles
@@ -248,6 +249,7 @@ call plug#end()
 nnoremap <silent> <leader>fjs :call JsBeautify()<cr>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory=s:get_cache_dir('neocomplete')
+let g:neocomplete#force_overwrite_completefunc
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_temporary_dir=s:get_cache_dir('neocomplcache')
 let g:neocomplcache_enable_fuzzy_completion=1
