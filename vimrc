@@ -15,6 +15,27 @@ function! s:get_cache_dir(suffix)
   endif
   return resolve(expand("$HOME/.vim/_cache/" . a:suffix))
 endfunction
+
+" From http://bit.ly/1msNvvh
+function! MarkWindowSwap()
+    let g:markedWinNum = winnr()
+endfunction
+
+function! DoWindowSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe g:markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf 
+endfunction
+
 " End Functions--------------------------------------------
 
 " Start Basic Vim Settings---------------------------------
@@ -81,6 +102,7 @@ set history=1000
 set tabpagemax=50
 set viminfo^=!
 set sessionoptions-=options
+let mapleader=","
 inoremap <C-U> <C-G>u<C-U>
 nnoremap <C-h> <C-W><C-h>
 nnoremap <C-l> <C-W><C-l>
@@ -99,6 +121,7 @@ autocmd FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
 autocmd FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
 autocmd FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
 autocmd FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
+au BufNewFile,BufRead *.txt set filetype=typoscript
 
 if has('autocmd')
   filetype plugin indent on
@@ -113,7 +136,6 @@ autocmd BufReadPost *
   \  exe 'normal! g`"zvzz' |
   \ endif
 
-autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
 autocmd FileType markdown setlocal nolist
 autocmd FileType vim setlocal fdm=indent keywordprg=:help
@@ -221,6 +243,8 @@ Plug 'vim-scripts/Tab-Name'
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/nerdtree-ack'
 Plug 'mtth/scratch.vim'
+Plug 'vim-scripts/CSApprox'
+Plug 'junegunn/seoul256.vim'
 
 " Lazy bundles
 Plug 'groenewege/vim-less', {'for':'less'}
@@ -238,6 +262,7 @@ Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
 Plug 'mmalecki/vim-node.js', {'for':['javascript']}
 Plug 'leshill/vim-json', {'for':['javascript','json']}
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','ls','typescript']}
+Plug 'vim-php/phpctags'
 
 " Work stuff
 Plug 'webgefrickel/vim-typoscript', {'for':['typoscript','text']}
@@ -249,12 +274,16 @@ call plug#end()
 nnoremap <silent> <leader>fjs :call JsBeautify()<cr>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory=s:get_cache_dir('neocomplete')
-let g:neocomplete#force_overwrite_completefunc
+let g:neocomplete#force_overwrite_completefunc = 1
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_temporary_dir=s:get_cache_dir('neocomplcache')
 let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+
+
+nmap <silent> <leader>yw :call MarkWindowSwap()<CR>
+nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 nmap <Leader>ss :Scratch<CR>
 

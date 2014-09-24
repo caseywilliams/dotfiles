@@ -8,3 +8,17 @@ Gemfile.lock
 .DS_Store
 .idea
 __Scratch__
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+Icon
+Thumbs.db
+ehthumbs.db
+*.swp
+*.swo
+*.orig
+*~
+\#*\#
+/tags
