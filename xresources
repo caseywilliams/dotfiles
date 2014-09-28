@@ -8,20 +8,32 @@ Xft.rgba: rgba
 
 URxvt.internalBorder: 5
 URxvt.jumpScroll: true
-URxvt*termName: rxvt-256color
+URxvt.termName: rxvt-256color
 *metaSendsEscape: true
 *utf8: 2
-URxvt*scrollBar: false
+URxvt.scrollBar: false
 URxvt.cursorUnderline: false
-URxvt*borderLess: false
-URxvt*depth:32
-URxvt*background: rgba:0000/0000/0000/bbbb
-!URxvt*background: #e9dabb
+URxvt.borderLess: false
+URxvt.depth:32
+URxvt.background: rgba:0000/0000/0000/bbbb
+URxvt*iso14755: false
+URxvt*iso14755_52: false
 
 ! Perl stuff
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher:   /usr/bin/chromium
-URxvt.matcher.button:   1
+URxvt.perl-ext-common: default,matcher,tabbed,font-size,clipboard
+URxvt.url-launcher: /usr/bin/chromium
+URxvt.matcher.button: 1
+URxvt.keysym.M-c perl:clipboard:copy
+URxvt.keysym.M-v perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.keysym.C-S-Up: perl:font-size:increase
+URxvt.keysym.C-S-Down: perl:font-size:decrease
+
+!tab colors
+URxvt.tabbed.tabbar-fg: 8
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 7
+URxvt.tabbed.tab-bg: 0
 
 !black
 URxvt.color0: #222222

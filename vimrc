@@ -247,6 +247,7 @@ Plug 'vim-scripts/CSApprox'
 Plug 'junegunn/seoul256.vim'
 
 " Lazy bundles
+Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
 Plug 'groenewege/vim-less', {'for':'less'}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','scss','sass'] }

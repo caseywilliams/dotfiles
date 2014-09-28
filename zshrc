@@ -55,7 +55,6 @@ case `uname` in
     ;;
 esac
 
-# Various version managers
-if [ -d $HOME/.nvm ]; then
-  source ~/.nvm/nvm.sh
-fi
+eval "$(rbenv init -)"
+export NVM_DIR="/home/cawil/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
