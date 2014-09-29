@@ -116,13 +116,6 @@ nnoremap <right> :bnext<CR>
 nnoremap <up> :tabnext<CR>
 nnoremap <down> :tabprev<CR>
 
-" I don't want to do this, but I have to
-autocmd FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
-autocmd FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
-autocmd FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
-autocmd FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
-au BufNewFile,BufRead *.txt set filetype=typoscript
-
 if has('autocmd')
   filetype plugin indent on
 endif
@@ -242,6 +235,7 @@ Plug 'joonty/vdebug'
 Plug 'vim-scripts/Tab-Name'
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/nerdtree-ack'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'mtth/scratch.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'junegunn/seoul256.vim'
@@ -281,15 +275,18 @@ let g:neocomplcache_temporary_dir=s:get_cache_dir('neocomplcache')
 let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+let g:gitgutter_max_signs=100000
 
 
-nmap <silent> <leader>yw :call MarkWindowSwap()<CR>
-nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+nmap <silent> <leader>yb :call MarkWindowSwap()<CR>
+nmap <silent> <leader>pb :call DoWindowSwap()<CR>
 
 nmap <Leader>ss :Scratch<CR>
 
 nmap <Leader>rh <Plug>GitGutterRevertHunk
 nmap <Leader>sh <Plug>GitGutterStageHunk
+nmap <Leader>hh <Plug>GitGutterNextHunk
+nmap <Leader>lh <Plug>GitGutterPrevHunk
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
