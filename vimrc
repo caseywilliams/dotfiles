@@ -213,7 +213,6 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/neocomplcache.vim'
 Plug 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
@@ -239,6 +238,8 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'mtth/scratch.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'junegunn/seoul256.vim'
+Plug 'vim-scripts/PreserveNoEOL'
+Plug 'rgarver/Kwbd.vim'
 
 " Lazy bundles
 Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
@@ -276,6 +277,9 @@ let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 let g:gitgutter_max_signs=100000
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline#extensions#tabline#left_alt_sep='¦'
 
 
 nmap <silent> <leader>yb :call MarkWindowSwap()<CR>
@@ -287,6 +291,7 @@ nmap <Leader>rh <Plug>GitGutterRevertHunk
 nmap <Leader>sh <Plug>GitGutterStageHunk
 nmap <Leader>hh <Plug>GitGutterNextHunk
 nmap <Leader>lh <Plug>GitGutterPrevHunk
+nnoremap Q :Kwbd
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -311,3 +316,11 @@ let g:vdebug_options= {
 \}
 
 colorscheme kolor
+
+
+" I don't want to do this, but I have to
+au FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
+au FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
+au FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
+au FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
+au BufNewFile,BufRead *.txt set filetype=typoscript
