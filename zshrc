@@ -4,7 +4,7 @@ fpath=($HOME/.dotfiles/zsh $fpath)
 autoload -U promptinit && promptinit
 prompt pure
 
-setopt histignorealldups sharehistory
+setopt histignorealldups sharehistory autocd extendedglob
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e

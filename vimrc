@@ -42,6 +42,7 @@ endfunction
 if !isdirectory(expand("$HOME/.vim/_cache"))
   call mkdir(expand("$HOME/.vim/_cache"))
 endif
+set hidden
 set expandtab
 set smarttab
 set tabstop=2
@@ -115,6 +116,7 @@ nnoremap <left> :bprev<CR>
 nnoremap <right> :bnext<CR>
 nnoremap <up> :tabnext<CR>
 nnoremap <down> :tabprev<CR>
+set iskeyword-=_
 
 if has('autocmd')
   filetype plugin indent on
@@ -208,6 +210,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet.vim'
@@ -230,7 +233,7 @@ Plug 'vim-scripts/CycleColor'
 Plug 'zeis/vim-kolor'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
-Plug 'joonty/vdebug'
+Plug 'brookhong/DBGPavim'
 Plug 'vim-scripts/Tab-Name'
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/nerdtree-ack'
@@ -239,7 +242,7 @@ Plug 'mtth/scratch.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'junegunn/seoul256.vim'
 Plug 'vim-scripts/PreserveNoEOL'
-Plug 'rgarver/Kwbd.vim'
+Plug 'vim-scripts/Tab-Name'
 
 " Lazy bundles
 Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
@@ -271,15 +274,13 @@ nnoremap <silent> <leader>fjs :call JsBeautify()<cr>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory=s:get_cache_dir('neocomplete')
 let g:neocomplete#force_overwrite_completefunc = 1
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_temporary_dir=s:get_cache_dir('neocomplcache')
-let g:neocomplcache_enable_fuzzy_completion=1
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 let g:gitgutter_max_signs=100000
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep=' '
 let g:airline#extensions#tabline#left_alt_sep='¦'
+let g:NERDTreeShowGitStatus = 1
 
 
 nmap <silent> <leader>yb :call MarkWindowSwap()<CR>
@@ -291,29 +292,14 @@ nmap <Leader>rh <Plug>GitGutterRevertHunk
 nmap <Leader>sh <Plug>GitGutterStageHunk
 nmap <Leader>hh <Plug>GitGutterNextHunk
 nmap <Leader>lh <Plug>GitGutterPrevHunk
-nnoremap Q :Kwbd
+nnoremap Q :Kwbd<CR>
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-
-let g:vdebug_options= {
-\    "port" : 9000,
-\    "server" : 'localhost',
-\    "timeout" : 20,
-\    "on_close" : 'detach',
-\    "break_on_open" : 1,
-\    "ide_key" : 'PHPSTORM',
-\    "path_maps" : {},
-\    "debug_window_level" : 0,
-\    "debug_file_level" : 0,
-\    "debug_file" : "",
-\    "watch_window_style" : 'expanded',
-\    "marker_default" : '⬦',
-\    "marker_closed_tree" : '▸',
-\    "marker_open_tree" : '▾'
-\}
+let g:dbgPavimPort = 9000
+let g:dbgPavimBreakAtEntry = 0
 
 colorscheme kolor
 
