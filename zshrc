@@ -1,45 +1,14 @@
-fpath=($HOME/.dotfiles/zsh $fpath)
+source ~/.dotfiles/zsh/antigen/antigen.zsh
 
-# Set up the prompt
-autoload -U promptinit && promptinit
-prompt pure
-
-setopt histignorealldups sharehistory autocd extendedglob
-
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-
-# Use modern completion system
-autoload -Uz compinit
-compinit
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-if whence dircolors >/dev/null; then
-  eval "$(dircolors -b)"
-  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-else
-  export CLICOLOR=1
-  zstyle ':completion:*:default' list-coors ''
-fi
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# teehee
+antigen bundles <<EOBUNDLES
+git
+heroku
+zsh-users/zsh-completions src
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting
+sindresorhus/pure
+EOBUNDLES
 
 if [ -f $HOME/.zsh_aliases ]; then
   source $HOME/.zsh_aliases
@@ -47,7 +16,7 @@ fi
 
 case `uname` in
   Linux)
-    alias ls="ls -AF --color"
+    alias ls="ls -F --color"
     ;;
   Darwin)
     alias ls="ls -FG"
@@ -55,6 +24,6 @@ case `uname` in
     ;;
 esac
 
-eval "$(rbenv init -)"
+eval "$(rbenv init -)" &> /dev/null
 export NVM_DIR="/home/cawil/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
