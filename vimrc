@@ -243,6 +243,7 @@ Plug 'vim-scripts/CSApprox'
 Plug 'junegunn/seoul256.vim'
 Plug 'vim-scripts/PreserveNoEOL'
 Plug 'vim-scripts/Tab-Name'
+Plug 'astashov/vim-ruby-debugger'
 
 " Lazy bundles
 Plug 'chase/vim-ansible-yaml', {'for':'yaml'}

@@ -1,3 +1,4 @@
+! Font
 URxvt.font: xft:InputMonoCondensed:pixelsize=17
 URxvt.letterSpace:-1
 Xft.dpi: 96
@@ -6,28 +7,34 @@ Xft.hinting: true
 Xft.hintstyle: hintfull
 Xft.rgba: rgba
 
+! General config
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
 URxvt.internalBorder: 5
 URxvt.jumpScroll: true
 URxvt.termName: rxvt-256color
-*metaSendsEscape: true
-*utf8: 2
+URxvt.metaSendsEscape: true
+URxvt.utf8: 2
 URxvt.scrollBar: false
 URxvt.cursorUnderline: false
 URxvt.borderLess: false
 URxvt.depth:32
-URxvt.background: rgba:0000/0000/0000/bbbb
-URxvt*iso14755: false
-URxvt*iso14755_52: false
+!URxvt.background: #000000
+URxvt.background: rgba:0000/0000/0000/efef
 
 ! Perl stuff
-URxvt.perl-ext-common: default,matcher,tabbed,font-size,clipboard
-URxvt.url-launcher: /usr/bin/chromium
+URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size
+URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-URxvt.keysym.M-c perl:clipboard:copy
-URxvt.keysym.M-v perl:clipboard:paste
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt.keysym.C-S-Up: perl:font-size:increase
-URxvt.keysym.C-S-Down: perl:font-size:decrease
+URxvt.clipboard.copycmd: xsel --input --clipboard
+URxvt.clipboard.pastecmd: xsel --output --clipboard
+URxvt.clipboard.autocopy: true
+URxvt.keysym.M-C-c perl:clipboard:copy
+URxvt.keysym.M-C-v perl:clipboard:paste
+URxvt.keysym.Control-Shift-Up: perl:font-size:increase
+URxvt.keysym.Control-Shift-Down: perl:font-size:decrease
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 !tab colors
 URxvt.tabbed.tabbar-fg: 8
