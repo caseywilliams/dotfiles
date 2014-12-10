@@ -24,7 +24,6 @@ case `uname` in
     [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
     ;;
 esac
-alias b="bundle exec"
 
 if [ -d $HOME/.rbenv ]; then
   export PATH=$HOME/.rbenv/bin:$PATH
@@ -48,6 +47,14 @@ up () {
   TEMP_PWD=`pwd`
   while ! [ -d .git ]; do
     cd ..
+    [ "$PWD" = "/" ] | break
   done
-  OLDPWD=$TEMP_PWD
+  if [ $NOGIT ]; then
+    echo "No git repo here"
+    cd $TEMP_PWD
+  else
+    OLDPWD=$TEMP_PWD
+  fi
 }
+
+alias be="bundle exec"

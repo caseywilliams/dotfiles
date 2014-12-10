@@ -244,6 +244,10 @@ Plug 'junegunn/seoul256.vim'
 Plug 'vim-scripts/PreserveNoEOL'
 Plug 'vim-scripts/Tab-Name'
 Plug 'astashov/vim-ruby-debugger'
+Plug 'bling/vim-bufferline'
+Plug 'tmhedberg/matchit'
+Plug 'rgarver/Kwbd.vim'
+Plug 'godlygeek/tabular'
 
 " Lazy bundles
 Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
@@ -262,7 +266,10 @@ Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
 Plug 'mmalecki/vim-node.js', {'for':['javascript']}
 Plug 'leshill/vim-json', {'for':['javascript','json']}
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','ls','typescript']}
-Plug 'vim-php/phpctags'
+Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
+Plug 'tpope/vim-rails', {'for':['ruby']}
+Plug 'vim-php/phpctags', {'for':['php']}
+
 
 " Work stuff
 Plug 'webgefrickel/vim-typoscript', {'for':['typoscript','text']}

@@ -12,13 +12,18 @@
   ui = auto
 
 [alias]
-  ci = commit
+  ci = commit -v
+  diff = diff --word-diff
   su = submodule update --init --recursive
   co = checkout
   br = branch
-  lg = log -p
   l = log -p
-  st = status
+  st = status --short --branch
+  fuckit = !git reset --hard HEAD && git clean -df
+  redo = commit --amend -C HEAD
+
+[diff]
+  mnemonicprefix = true
 
 # Mac stuff
 [hub]
