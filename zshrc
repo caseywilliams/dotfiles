@@ -1,14 +1,18 @@
 source ~/.dotfiles/zsh/antigen/antigen.zsh
 
 # teehee
+antigen use oh-my-zsh
 antigen bundles <<EOBUNDLES
 git
+git-extras
 heroku
 zsh-users/zsh-completions src
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
-sindresorhus/pure
 EOBUNDLES
+antigen apply
+source $ZSH/oh-my-zsh.sh
+antigen theme blinks
 bindkey -e
 
 if [ -f $HOME/.zsh_aliases ]; then
