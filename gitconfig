@@ -12,22 +12,20 @@
   ui = auto
 
 [alias]
-  ci = commit -v
-  diff = diff --word-diff
   su = submodule update --init --recursive
   co = checkout
   br = branch
+  lg = log -p
   l = log -p
+  wdiff = diff --word-diff
+  ci = commit -v
   st = status --short --branch
-  fuckit = !git reset --hard HEAD && git clean -df
+  lg = "log --pretty=format:'%C(yellow)%h%C(reset) %C(blue)%an%C(reset) %C(cyan)%cr%C(reset) %s %C(green)%d%C(reset)' --graph"
+  for = pull --ff-only
   redo = commit --amend -C HEAD
+  rem = !git rebase -i $(git merge-base master HEAD)
+  fuckit = !git reset --hard HEAD && git clean -df
+  o = "!f() { hub browse -- commit/$1; }; f"
 
 [diff]
   mnemonicprefix = true
-
-# Mac stuff
-[hub]
-  protocol = https
-
-[credential]
-  helper = /opt/boxen/bin/boxen-git-credential
