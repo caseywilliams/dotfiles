@@ -12,7 +12,7 @@ zsh-users/zsh-syntax-highlighting
 EOBUNDLES
 antigen apply
 source $ZSH/oh-my-zsh.sh
-antigen theme blinks
+antigen theme pure
 bindkey -e
 
 if [ -f $HOME/.zsh_aliases ]; then
@@ -62,3 +62,5 @@ up () {
 }
 
 alias be="bundle exec"
+alias v="vagrant"
+alias vvh="vagrant ssh"

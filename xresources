@@ -1,5 +1,5 @@
-! Font
-URxvt.font: xft:InputMonoCondensed:pixelsize=17
+! URxvt.font: xft:Droid Sans Mono for Powerline:pixelsize=16
+URxvt.font: xft:InputMono:pixelsize=15
 URxvt.letterSpace:-1
 Xft.dpi: 96
 Xft.antialias: true
@@ -20,7 +20,7 @@ URxvt.cursorUnderline: false
 URxvt.borderLess: false
 URxvt.depth:32
 !URxvt.background: #000000
-URxvt.background: rgba:0000/0000/0000/efef
+URxvt.background: rgba:0000/0000/0000/dede
 
 ! Perl stuff
 URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size

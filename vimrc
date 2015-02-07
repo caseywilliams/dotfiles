@@ -92,6 +92,8 @@ set laststatus=2
 set noshowmode
 set foldmethod=manual
 let &colorcolumn=80
+highlight ColorColumn guibg=Black
+highlight ColorColumn ctermbg=7
 set complete-=i
 set ttimeout
 set ttimeoutlen=100
@@ -134,6 +136,7 @@ autocmd BufReadPost *
 autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
 autocmd FileType markdown setlocal nolist
 autocmd FileType vim setlocal fdm=indent keywordprg=:help
+autocmd FileType php setl sw=4 sts=4
 
 " Mappings
 nnoremap <silent> <Space><Space> :noh<CR>
@@ -248,6 +251,7 @@ Plug 'bling/vim-bufferline'
 Plug 'tmhedberg/matchit'
 Plug 'rgarver/Kwbd.vim'
 Plug 'godlygeek/tabular'
+Plug 'editorconfig/editorconfig-vim'
 
 " Lazy bundles
 Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
@@ -301,6 +305,8 @@ nmap <Leader>sh <Plug>GitGutterStageHunk
 nmap <Leader>hh <Plug>GitGutterNextHunk
 nmap <Leader>lh <Plug>GitGutterPrevHunk
 nnoremap Q :Kwbd<CR>
+nmap <F12> :CycleColorNext<CR>
+nmap <F11> :CycleColorPrev<CR>
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -309,12 +315,4 @@ smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 let g:dbgPavimPort = 9000
 let g:dbgPavimBreakAtEntry = 0
 
-colorscheme kolor
-
-
-" I don't want to do this, but I have to
-au FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
-au FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
-au FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
-au FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
-au BufNewFile,BufRead *.txt set filetype=typoscript
+colorscheme hybrid
