@@ -34,10 +34,10 @@ set number
 " column
 set ruler
 
-" Sound bells bad, visual bells ok
+" No bells
 set noerrorbells
 set t_vb=
-set visualbell
+set novisualbell
 
 " Let vim look for settings in modelines
 set modeline
@@ -58,10 +58,10 @@ cmap w!! w !sudo tee % >/dev/null
 " Tabs are vim's default behavior, but if you want to use spaces instead of tabs:
 set expandtab
 
-" Use 4-space 'tabs' by default:
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+" Use 2-space 'tabs' by default:
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 " C-like indentation blah blah
 set smartindent
@@ -81,6 +81,8 @@ nnoremap k gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+" Set leader to comma
+let mapleader=","
 
 " Keep messages displayed to a minimum length and avoid scrolling in message
 " outputs (avoid the 'press a key' prompts)
@@ -93,14 +95,15 @@ set listchars=tab:│\ ,trail:•,extends:»,precedes:«
 " Better tab complete menu
 set wildmenu
 
-" Ignore case when tab completing vim commands
-set wildignorecase
-
 " wildmenu behavior default
 set wildmode=list:full
 
 " Ignore case when tab-completing filenames
 set wildignorecase
+
+" Ignore case for tab-completing commands, use smartcase for searches
+set ignorecase
+nnoremap / /\C
 
 " Don't tab complete files with these extensions
 set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.jpg,*.png,*.gif,*.jpeg,*.bmp,*.tif,*.tiff,*.psd,*.hg,*.git,*.svn,*.exe,*.dll,*.pyc,*.DS_Store
@@ -116,10 +119,6 @@ nnoremap <silent> <Space><Space> :nohlsearch<CR>
 
 " Start matching searches as soon as you start typing
 set incsearch
-
-" Or, my preferred option: only ignore case when searching if your search
-" is ALL lowercase.
-set smartcase
 
 " Just don't even show me command shell mode
 nnoremap Q <nop>
@@ -151,6 +150,9 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=7
 " ...and for gvim/mvim:
 highlight ColorColumn guibg=Black
+
+" Don't use matchparen.vim to highlight matching parents
+let loaded_matchparen = 1
 
 " When opening a file, start with the cursor wherever it was last time you
 " edited it.
@@ -184,11 +186,6 @@ set sidescrolloff=2
 " you need to paste some crap in
 set pastetoggle=<F2>
 
-" This allows you to use your mouse to do things like set the position of your
-" cursor, highlight visual selections, select tabs, and double-click on things
-" in plugins like nerd tree. Also makes snooty vim neckbeards hate you!
-set mouse=a
-
 " This set of mappings makes the current search result always appear in the
 " middle of the screen:
 nnoremap n nzz
@@ -198,13 +195,21 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
+" Gvim settings
+set guioptions-=m
+set guioptions-=r
+set guioptions-=L
+if has("gui_gtk2")
+    set guifont=Terminus\ \(TTF\)\ Medium\ 13
+endif
+
 " Plugin time
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
 Plug 'bling/vim-airline'
-Plug 'Shougo/neocomplete.vim'
+Plug 'Valloric/YouCompleteMe'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'scrooloose/syntastic'
@@ -220,11 +225,13 @@ Plug 'kien/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'brookhong/DBGPavim'
 Plug 'majutsushi/tagbar'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'vim-scrips/CycleColor'
 
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
-Plug 'chase/vim-ansible-yaml', {'for':'yaml'}
-Plug 'groenewege/vim-less', {'for':'less'}
+Plug 'chase/vim-ansible-yaml', {'for': 'yaml'}
+Plug 'groenewege/vim-less', {'for': 'less'}
 Plug 'wavded/vim-stylus', {'for':['styl']}
 Plug 'juvenn/mustache.vim', {'for':['mustache']}
 Plug 'pangloss/vim-javascript', {'for':['javascript']}
@@ -238,14 +245,9 @@ call plug#end()
 
 colorscheme hybrid
 
-" Start neocomplete up automatically
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#force_overwrite_completefunc = 1
+" Neosnippet setup
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-" Use the tab key to complete things in insert mode, instead of the default ^n
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 
 " Settings for the dbgPavim xdebug client
 " Use port 9000 for debugging:
@@ -278,7 +280,6 @@ nmap <Leader>sh <Plug>GitGutterStageHunk
 nmap <Leader>hh <Plug>GitGutterNextHunk
 " skip to the previous hunk:
 nmap <Leader>lh <Plug>GitGutterPrevHunk
-
 
 " Airline configuration
 let g:airline#extensions#tabline#enabled = 1
