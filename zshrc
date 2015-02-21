@@ -1,4 +1,5 @@
 source ~/.dotfiles/zsh/antigen/antigen.zsh
+export EDITOR=vim
 
 # teehee
 antigen use oh-my-zsh
