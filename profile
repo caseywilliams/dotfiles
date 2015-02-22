@@ -1,7 +1,6 @@
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 export BROWSER="chromium"
-export TERM="rxvt-256color"
 export LESS="-iQsR"
 export PAGER="less"
 export GREP_COLOR='1;30'

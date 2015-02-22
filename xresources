@@ -1,6 +1,7 @@
-! URxvt.font: xft:Droid Sans Mono for Powerline:pixelsize=16
-URxvt.font: xft:InputMono:pixelsize=15
+URxvt.font: xft:PT Mono for Powerline:pizelsize=11
 URxvt.letterSpace:-1
+URxvt.lineSpace:-10
+URxvt.lsp: 500
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -20,7 +21,7 @@ URxvt.cursorUnderline: false
 URxvt.borderLess: false
 URxvt.depth:32
 !URxvt.background: #000000
-URxvt.background: rgba:0000/0000/0000/dede
+URxvt.background: rgba:1d1d/1d1d/1d1d/dede
 
 ! Perl stuff
 URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size
@@ -43,28 +44,28 @@ URxvt.tabbed.tab-fg: 7
 URxvt.tabbed.tab-bg: 0
 
 !black
-URxvt.color0: #222222
-URxvt.color8: #666666
+URxvt.color0: #343434
+URxvt.color8: #737373
 !red
-URxvt.color1: #E84F4F
-URxvt.color9: #D23D3D
+URxvt.color1: #c26b46
+URxvt.color9: #ef7b47
 !green
-URxvt.color2: #B7CE42
-URxvt.color10: #BDE077
+URxvt.color2: #7cbf9e
+URxvt.color10: #a2d9b1
 !yellow
-URxvt.color3: #FEA63C
-URxvt.color11: #FFE863
+URxvt.color3: #8a7a63
+URxvt.color11: #beb090
 !blue
-URxvt.color4: #66AABB
-URxvt.color12: #AACCBB
+URxvt.color4: #4b5369
+URxvt.color12: #7b96b2
 !magenta
-URxvt.color5: #B7416E
-URxvt.color13: #E16A98
+URxvt.color5: #ff5879
+URxvt.color13: #ff99a1
 !cyan
-URxvt.color6: #6D878D
-URxvt.color14: #42717B
+URxvt.color6: #44b5b1
+URxvt.color14: #9ed9d8
 !white
-URxvt.color7: #DDDDDD
-URxvt.color15: #CCCCCC
+URxvt.color7: #ccccc6
+URxvt.color15: #e7dede
 
-URxvt.foreground: #efefef
+URxvt.foreground: #e8e8e8

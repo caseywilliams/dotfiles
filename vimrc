@@ -227,6 +227,9 @@ Plug 'brookhong/DBGPavim'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scrips/CycleColor'
+Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/csapprox'
+Plug 'rgarver/Kwbd.vim'
 
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
@@ -243,7 +246,10 @@ Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
 Plug 'webgefrickel/vim-typoscript', {'for':['typoscript','text']}
 call plug#end()
 
-colorscheme hybrid
+" Use 256 colors and configure csapprox
+set t_Co=256
+let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
+colorscheme hybrid-light
 
 " Neosnippet setup
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -282,6 +288,7 @@ nmap <Leader>hh <Plug>GitGutterNextHunk
 nmap <Leader>lh <Plug>GitGutterPrevHunk
 
 " Airline configuration
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep=' '
 let g:airline#extensions#tabline#left_alt_sep='¦'
