@@ -230,6 +230,7 @@ Plug 'vim-scrips/CycleColor'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/csapprox'
 Plug 'rgarver/Kwbd.vim'
+Plug 'lilydjwg/colorizer'
 
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
@@ -249,7 +250,10 @@ call plug#end()
 " Use 256 colors and configure csapprox
 set t_Co=256
 let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
-colorscheme hybrid-light
+colorscheme luna
+
+" CycleColor on F12
+:nnoremap <F12> :CycleColorNext<CR>
 
 " Neosnippet setup
 let g:neosnippet#enable_snipmate_compatibility = 1

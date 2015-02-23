@@ -1,6 +1,5 @@
 URxvt.font: xft:PT Mono for Powerline:pizelsize=11
 URxvt.letterSpace:-1
-URxvt.lineSpace:-10
 URxvt.lsp: 500
 Xft.dpi: 96
 Xft.antialias: true
@@ -21,7 +20,7 @@ URxvt.cursorUnderline: false
 URxvt.borderLess: false
 URxvt.depth:32
 !URxvt.background: #000000
-URxvt.background: rgba:1d1d/1d1d/1d1d/dede
+URxvt.background: rgba:1d1d/1d1d/1d1d/efef
 
 ! Perl stuff
 URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size
@@ -56,7 +55,7 @@ URxvt.color10: #a2d9b1
 URxvt.color3: #8a7a63
 URxvt.color11: #beb090
 !blue
-URxvt.color4: #4b5369
+URxvt.color4: #646b80
 URxvt.color12: #7b96b2
 !magenta
 URxvt.color5: #ff5879
