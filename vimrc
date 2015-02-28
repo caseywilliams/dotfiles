@@ -120,9 +120,13 @@ nnoremap <silent> <Space><Space> :nohlsearch<CR>
 " Start matching searches as soon as you start typing
 set incsearch
 
-" Just don't even show me command shell mode
-nnoremap Q <nop>
+" Just don't even show me command shell mode - make Q redo the last macro
+nnoremap Q @@
 nnoremap q: <nop>
+
+" I never use command lookup, so disable it
+nnoremap K k
+vnoremap K k
 
 " Relative line numbers
 set relativenumber
@@ -164,8 +168,8 @@ autocmd BufReadPost *
 " Don't care about trailing whitespace in markdown files
 autocmd FileType markdown setlocal nolist
 
-" Auto-reload my vimrc whenever I write to it
-autocmd! bufwritepost vimrc source ~/.vim/vimrc
+" Autoreload vimrc when written
+autocmd! bufwritepost vimrc source ~/.vimrc
 
 " Cycle through open buffers using the left and right arrow keys
 nnoremap <left> :bprev<CR>
@@ -209,8 +213,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
 Plug 'bling/vim-airline'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet.vim'
+Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
@@ -226,18 +231,22 @@ Plug 'w0ng/vim-hybrid'
 Plug 'brookhong/DBGPavim'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'vim-scrips/CycleColor'
+Plug 'vim-scripts/CycleColor'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/csapprox'
 Plug 'rgarver/Kwbd.vim'
 Plug 'lilydjwg/colorizer'
+Plug 'Raimondi/delimitMate'
 
+Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
 Plug 'chase/vim-ansible-yaml', {'for': 'yaml'}
 Plug 'groenewege/vim-less', {'for': 'less'}
 Plug 'wavded/vim-stylus', {'for':['styl']}
 Plug 'juvenn/mustache.vim', {'for':['mustache']}
+Plug 'joestelmach/lint.vim', {'for':['javascript']}
 Plug 'pangloss/vim-javascript', {'for':['javascript']}
 Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
 Plug 'mmalecki/vim-node.js', {'for':['javascript']}
@@ -253,11 +262,7 @@ let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
 colorscheme luna
 
 " CycleColor on F12
-:nnoremap <F12> :CycleColorNext<CR>
-
-" Neosnippet setup
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+nnoremap <F12> :CycleColorNext<CR>
 
 " Settings for the dbgPavim xdebug client
 " Use port 9000 for debugging:
@@ -299,6 +304,16 @@ let g:airline#extensions#tabline#left_alt_sep='¦'
 
 " Show git status in nerdtree
 let g:NERDTreeShowGitStatus = 1
+
+" Completion config, via bling.vim by bling
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+let g:neosnippet#enable_snipmate_compatibility=1
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+let g:neocomplete#enable_at_startup=1
+let g:neocomplete#data_directory='~/.vim/cache/neocomplete'
 
 " Stuff to use on the work mac
 if has("unix")
