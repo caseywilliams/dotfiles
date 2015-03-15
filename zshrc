@@ -40,7 +40,7 @@ if [ -d $HOME/.pyenv ]; then
   eval "$(pyenv virtualenv-init -)"
 fi
 
-export NVM_DIR="/home/cawil/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 agent () {
