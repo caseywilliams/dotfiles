@@ -238,6 +238,7 @@ Plug 'rgarver/Kwbd.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'Raimondi/delimitMate'
 
+Plug 'vim-scripts/c.vim', {'for': ['c','cpp']}
 Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
@@ -259,7 +260,9 @@ call plug#end()
 " Use 256 colors and configure csapprox
 set t_Co=256
 let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
-colorscheme luna
+colorscheme bubblegum
+set background=dark
+let g:airline_theme="bubblegum"
 
 " CycleColor on F12
 nnoremap <F12> :CycleColorNext<CR>
@@ -314,6 +317,8 @@ imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory='~/.vim/cache/neocomplete'
+
+au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
 
 " Stuff to use on the work mac
 if has("unix")
