@@ -199,6 +199,9 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
+" Strip trailing whitespace on <Leader>w
+:nnoremap <Leader>w :%s/\s\+$//g<CR>
+
 " Gvim settings
 set guioptions-=m
 set guioptions-=r
