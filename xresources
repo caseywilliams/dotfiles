@@ -1,4 +1,4 @@
-URxvt.font: xft:PT Mono for Powerline:pizelsize=11
+URxvt.font: xft:PT Mono for Powerline:pizelsize=13
 URxvt.letterSpace:-1
 URxvt.lsp: 500
 Xft.dpi: 96
@@ -17,6 +17,7 @@ URxvt.metaSendsEscape: true
 URxvt.utf8: 2
 URxvt.scrollBar: false
 URxvt.cursorUnderline: false
+URxvt.cursorColor: #aaaaaa
 URxvt.borderLess: false
 URxvt.depth:32
 !URxvt.background: #000000

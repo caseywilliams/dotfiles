@@ -5,7 +5,7 @@ set nocompatible
 set encoding=utf-8
 scriptencoding utf-8
 
-" Detect fieltypes
+" Detect filetypes
 filetype plugin indent on
 
 " Enable syntax highlighting
@@ -207,7 +207,7 @@ set guioptions-=m
 set guioptions-=r
 set guioptions-=L
 if has("gui_gtk2")
-    set guifont=Terminus\ \(TTF\)\ Medium\ 13
+  set guifont=PT\ Mono\ \for\Powerline\ 12
 endif
 
 " Plugin time
@@ -240,8 +240,12 @@ Plug 'godlygeek/csapprox'
 Plug 'rgarver/Kwbd.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-markdown'
+Plug 'vim-scripts/vimspell'
+Plug 'chriskempson/base16-vim'
 
 Plug 'vim-scripts/c.vim', {'for': ['c','cpp']}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}
@@ -267,8 +271,9 @@ colorscheme bubblegum
 set background=dark
 let g:airline_theme="bubblegum"
 
-" CycleColor on F12
+" CycleColor on F11/F12
 nnoremap <F12> :CycleColorNext<CR>
+nnoremap <F11> :CycleColorPrev<CR>
 
 " Settings for the dbgPavim xdebug client
 " Use port 9000 for debugging:
@@ -334,3 +339,5 @@ if has("unix")
     au BufNewFile,BufRead *.txt set filetype=typoscript
   endif
 endif
+
+au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
