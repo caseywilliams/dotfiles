@@ -120,9 +120,11 @@ nnoremap <silent> <Space><Space> :nohlsearch<CR>
 " Start matching searches as soon as you start typing
 set incsearch
 
-" Just don't even show me command shell mode - make Q redo the last macro
-nnoremap Q @@
+" Just don't even show me command shell mode
 nnoremap q: <nop>
+
+" Kwbd with Q
+nnoremap <silent> Q :Kwbd<CR>
 
 " I never use command lookup, so disable it
 nnoremap K k
@@ -237,12 +239,14 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/CycleColor'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/csapprox'
-Plug 'rgarver/Kwbd.vim'
 Plug 'lilydjwg/colorizer'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-markdown'
 Plug 'vim-scripts/vimspell'
 Plug 'chriskempson/base16-vim'
+Plug 'vexxor/kwbd.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 Plug 'vim-scripts/c.vim', {'for': ['c','cpp']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
@@ -267,9 +271,8 @@ call plug#end()
 " Use 256 colors and configure csapprox
 set t_Co=256
 let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
-colorscheme bubblegum
+colorscheme base16-default
 set background=dark
-let g:airline_theme="bubblegum"
 
 " CycleColor on F11/F12
 nnoremap <F12> :CycleColorNext<CR>
