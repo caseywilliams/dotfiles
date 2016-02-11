@@ -209,7 +209,7 @@ set guioptions-=m
 set guioptions-=r
 set guioptions-=L
 if has("gui_gtk2")
-  set guifont=PT\ Mono\ \for\Powerline\ 12
+  set guifont=Roboto\ Mono\ \for\Powerline\ 11
 endif
 
 " Plugin time
@@ -217,7 +217,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'honza/vim-snippets'
@@ -233,56 +234,43 @@ Plug 'tyok/nerdtree-ack'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kien/ctrlp.vim'
 Plug 'w0ng/vim-hybrid'
-Plug 'brookhong/DBGPavim'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/CycleColor'
-Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/csapprox'
 Plug 'lilydjwg/colorizer'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-markdown'
 Plug 'vim-scripts/vimspell'
 Plug 'chriskempson/base16-vim'
-Plug 'vexxor/kwbd.vim'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
+Plug 'rodjek/vim-puppet'
+Plug 'rgarver/Kwbd.vim'
 Plug 'vim-scripts/c.vim', {'for': ['c','cpp']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
-Plug 'rodjek/vim-puppet', {'for': 'puppet'}
-Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss'] }
-Plug 'chase/vim-ansible-yaml', {'for': 'yaml'}
-Plug 'groenewege/vim-less', {'for': 'less'}
-Plug 'wavded/vim-stylus', {'for':['styl']}
-Plug 'juvenn/mustache.vim', {'for':['mustache']}
-Plug 'joestelmach/lint.vim', {'for':['javascript']}
-Plug 'pangloss/vim-javascript', {'for':['javascript']}
-Plug 'kchmck/vim-coffee-script', {'for':['coffee']}
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'chase/vim-ansible-yaml'
+Plug 'groenewege/vim-less'
+Plug 'wavded/vim-stylus'
+Plug 'juvenn/mustache.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'kchmck/vim-coffee-script'
 Plug 'mmalecki/vim-node.js', {'for':['javascript']}
-Plug 'leshill/vim-json', {'for':['javascript','json']}
-Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','ls','typescript']}
+Plug 'leshill/vim-json'
+Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
 Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
-Plug 'webgefrickel/vim-typoscript', {'for':['typoscript','text']}
 call plug#end()
 
-" Use 256 colors and configure csapprox
 set t_Co=256
-let g:CSApprox_attr_map = { 'bold': 'bold', 'italic': '', 'sp': '' }
-colorscheme base16-default
+colorscheme base16-tomorrow
 set background=dark
 
 " CycleColor on F11/F12
 nnoremap <F12> :CycleColorNext<CR>
 nnoremap <F11> :CycleColorPrev<CR>
 
-" Settings for the dbgPavim xdebug client
-" Use port 9000 for debugging:
-let g:dbgPavimPort = 9000
-" Don't auto-break at the first line:
-let g:dbgPavimBreakAtEntry = 0
 " Don't hate
 set mouse=a
 
@@ -328,19 +316,5 @@ imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory='~/.vim/cache/neocomplete'
-
-au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
-
-" Stuff to use on the work mac
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin"
-    au FileType php set tabstop=4|set shiftwidth=4|set noexpandtab
-    au FileType typoscript set tabstop=4|set shiftwidth=4|set noexpandtab
-    au FileType html set tabstop=4|set shiftwidth=4|set noexpandtab
-    au FileType xml set tabstop=4|set shiftwidth=4|set noexpandtab
-    au BufNewFile,BufRead *.txt set filetype=typoscript
-  endif
-endif
 
 au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab

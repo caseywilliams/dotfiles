@@ -1,15 +1,14 @@
 #!/bin/sh
-# Uhh this is the first shell script I've written in like, years
 
 GEN="zshrc vimrc profile gitignore"
-LINUX="xresources"
+LINUX="Xresources Xmodmap"
 MAC="osx"
 NOLINK="gitconfig"
 
 link_file()
 {
   if [ -f $HOME/.$1 ]; then
-    if [ -L $HOME/.$1 ]; then
+    if [ -h $HOME/.$1 ]; then
       unlink $HOME/.$1
     else
       echo "Backing up your existing .$1 to .$1.original..."
@@ -52,7 +51,7 @@ cp -r vim/snippets $HOME/.vim/
 if [ ! -d $HOME/.vim/autoload ]; then
   mkdir -p $HOME/.vim/autoload
 fi
-curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo $HOME/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 if [ `uname -s` = 'Darwin' ]; then
   for file in $MAC; do
@@ -64,16 +63,31 @@ if [ `uname -s` = 'Linux' ]; then
   for file in $LINUX; do
     link_file $file
   done
+  if [ ! -d $HOME/.fonts ]; then
+    mkdir $HOME/.fonts
+    git clone https://github.com/powerline/fonts.git $HOME/.fonts/powerline-fonts
+  fi
 fi
 
-if [ ! -d $HOME/.nvm ]; then
-  read -p "Want to install NVM? (yn) " yn
+if [ ! -d $HOME/.nodenv ]; then
+  read -p "Want to install nodenv? (yn) " yn
   case $yn in
     [Yy]* )
-      git clone https://github.com/creationix/nvm.git $HOME/.nvm
-      cd $HOME/.nvm
-      git checkout `git describe --abbrev=0 --tags` 1> /dev/null
-      cd - 1> /dev/null
+      git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
+      cd $HOME/.nodenv && src/configure && make -C src && cd -
+      git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
+      ;;
+    * ) exit;;
+  esac
+fi
+
+if [ ! -d $HOME/.rbenv ]; then
+  read -p "Want to install rbenv? (yn) " yn
+  case $yn in
+    [Yy]* )
+      git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
+      cd $HOME/.rbenv && src/configure && make -C src && cd -
+      git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
       ;;
     * ) exit;;
   esac

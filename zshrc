@@ -1,7 +1,4 @@
 source ~/.dotfiles/zsh/antigen/antigen.zsh
-export EDITOR=vim
-
-# teehee
 antigen use oh-my-zsh
 antigen bundles <<EOBUNDLES
 git
@@ -14,7 +11,12 @@ EOBUNDLES
 antigen apply
 source $ZSH/oh-my-zsh.sh
 antigen theme pure
+
 bindkey -e
+
+alias be="bundle exec"
+alias v="vagrant"
+alias vvh="vagrant ssh"
 
 if [ -f $HOME/.zsh_aliases ]; then
   source $HOME/.zsh_aliases
@@ -31,17 +33,23 @@ case `uname` in
 esac
 
 if [ -d $HOME/.rbenv ]; then
-  export PATH=$HOME/.rbenv/bin:$PATH
-  eval "$(rbenv init -)" > /dev/null 2>&1
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
 fi
+
 if [ -d $HOME/.pyenv ]; then
   export PATH="$HOME/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+if [ -d $HOME/.nodenv ]; then
+  export PATH="$HOME/.nodenv/bin:$PATH"
+  eval "$(nodenv init -)"
+fi
+
+export PATH=./node_modules/bin:$HOME/.local/bin:$PATH
+export EDITOR=vim
 
 agent () {
   [ $1 ] && KEY="$1" || KEY="id_rsa"
@@ -61,7 +69,3 @@ up () {
     OLDPWD=$TEMP_PWD
   fi
 }
-
-alias be="bundle exec"
-alias v="vagrant"
-alias vvh="vagrant ssh"

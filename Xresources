@@ -1,4 +1,4 @@
-URxvt.font: xft:PT Mono for Powerline:pizelsize=13
+URxvt.font: xft:Roboto Mono for Powerline:pizelsize=11
 URxvt.letterSpace:-1
 URxvt.lsp: 500
 Xft.dpi: 96
