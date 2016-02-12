@@ -1,9 +1,12 @@
 #!/bin/sh
 
-GEN="zshrc vimrc profile gitignore"
+GEN="zshrc vimrc zprofile gitignore"
 LINUX="Xresources Xmodmap"
 MAC="osx"
 NOLINK="gitconfig"
+
+type git >/dev/null 2>&1 || { echo >&2 "You need to install git first.\n"; exit 1; }
+type zsh >/dev/null 2>&1 || { echo >&2 "You need to install zsh first.\n"; exit 1; }
 
 link_file()
 {
@@ -67,6 +70,17 @@ if [ `uname -s` = 'Linux' ]; then
     mkdir $HOME/.fonts
     git clone https://github.com/powerline/fonts.git $HOME/.fonts/powerline-fonts
   fi
+  read -p "Want to install a gtk3 theme? (yn) " yn
+  case $yn in
+    [Yy]* )
+      if [ ! -d $HOME/.themes ]; then
+        mkdir $HOME/.themes
+      fi
+      curl -s https://raw.githubusercontent.com/xenlism/minimalism/master/INSTALL/online.install > /tmp/install-minimalism-theme
+      bash /tmp/install-minimalism-theme
+      ;;
+    * ) exit;;
+  esac
 fi
 
 if [ ! -d $HOME/.nodenv ]; then

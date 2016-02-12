@@ -48,8 +48,11 @@ if [ -d $HOME/.nodenv ]; then
   eval "$(nodenv init -)"
 fi
 
-export PATH=./node_modules/bin:$HOME/.local/bin:$PATH
+export PATH=./node_modules/.bin:$HOME/.local/bin:$PATH
 export EDITOR=vim
+export PAGER="less"
+export GREP_COLOR='1;30'
+export CDPATH=$HOME/src
 
 agent () {
   [ $1 ] && KEY="$1" || KEY="id_rsa"

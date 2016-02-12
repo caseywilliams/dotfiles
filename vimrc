@@ -94,6 +94,7 @@ set listchars=tab:│\ ,trail:•,extends:»,precedes:«
 
 " Better tab complete menu
 set wildmenu
+set completeopt=longest,menuone,preview
 
 " wildmenu behavior default
 set wildmode=list:full
@@ -172,6 +173,9 @@ autocmd FileType markdown setlocal nolist
 
 " Autoreload vimrc when written
 autocmd! bufwritepost vimrc source ~/.vimrc
+
+" Detect node files w/out extension
+autocmd BufNewFile,BufRead * if match(getline(1),"node") >= 0 | set filetype=javascript | endif
 
 " Cycle through open buffers using the left and right arrow keys
 nnoremap <left> :bprev<CR>
@@ -257,7 +261,9 @@ Plug 'juvenn/mustache.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'kchmck/vim-coffee-script'
-Plug 'mmalecki/vim-node.js', {'for':['javascript']}
+Plug 'mmalecki/vim-node.js', {'for': 'javascript'}
+Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
+Plug 'darthmall/vim-vue'
 Plug 'leshill/vim-json'
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
 Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
