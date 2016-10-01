@@ -219,6 +219,7 @@ endif
 " Plugin time
 call plug#begin('~/.vim/plugged')
 
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'tmhedberg/matchit'
 Plug 'vim-airline/vim-airline'
@@ -237,7 +238,6 @@ Plug 'mileszs/ack.vim'
 Plug 'tyok/nerdtree-ack'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kien/ctrlp.vim'
-Plug 'w0ng/vim-hybrid'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/CycleColor'
@@ -246,31 +246,14 @@ Plug 'lilydjwg/colorizer'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-markdown'
 Plug 'vim-scripts/vimspell'
-Plug 'chriskempson/base16-vim'
-Plug 'rodjek/vim-puppet'
 Plug 'rgarver/Kwbd.vim'
-Plug 'vim-scripts/c.vim', {'for': ['c','cpp']}
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
-Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
-Plug 'StanAngeloff/php.vim', {'for': 'php'}
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'chase/vim-ansible-yaml'
-Plug 'groenewege/vim-less'
-Plug 'wavded/vim-stylus'
-Plug 'juvenn/mustache.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mmalecki/vim-node.js', {'for': 'javascript'}
-Plug 'ternjs/tern_for_vim', {'for': 'javascript'}
-Plug 'darthmall/vim-vue'
-Plug 'leshill/vim-json'
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
 Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
+Plug 'reedes/vim-colors-pencil'
 call plug#end()
 
 set t_Co=256
-colorscheme base16-tomorrow
+colorscheme pencil
 set background=dark
 
 " CycleColor on F11/F12
