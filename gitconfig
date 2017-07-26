@@ -1,6 +1,3 @@
-[user]
-  name = Casey Williams
-
 [core]
   excludesfile = ~/.gitignore
 
@@ -25,7 +22,7 @@
   redo = commit --amend -C HEAD
   rem = !git rebase -i $(git merge-base master HEAD)
   fuckit = !git reset --hard HEAD && git clean -df
-  o = "!f() { hub browse -- commit/$1; }; f"
+  fix = "!f() { git commit --fixup=$1 && git rebase -i --autosquash $1~1; }; f"
 
 [diff]
   mnemonicprefix = true

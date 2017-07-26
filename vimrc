@@ -30,11 +30,10 @@ set laststatus=2
 " Show line numbers
 set number
 
-" Show current position in file (perecntage scrolled) and current line and
-" column
+" Show percentage scrolled and current line/column
 set ruler
 
-" No bells
+" No bells, ever
 set noerrorbells
 set t_vb=
 set novisualbell
@@ -65,9 +64,6 @@ set shiftwidth=2
 
 " C-like indentation blah blah
 set smartindent
-
-" Do any text wrapping at 80 characters
-set textwidth=80
 
 " Use Ctrl-<direction> to navigate between splits
 map <silent> <c-k> :wincmd k<CR>
@@ -115,7 +111,7 @@ set ttyfast
 " Highlight matched searches so they're easier to see
 set hlsearch
 
-" Double spacebar to clear any highlighted searches
+" ...and use double spacebar to clear any highlighted searches
 nnoremap <silent> <Space><Space> :nohlsearch<CR>
 
 " Start matching searches as soon as you start typing
@@ -123,9 +119,6 @@ set incsearch
 
 " Just don't even show me command shell mode
 nnoremap q: <nop>
-
-" Kwbd with Q
-nnoremap <silent> Q :Kwbd<CR>
 
 " I never use command lookup, so disable it
 nnoremap K k
@@ -147,8 +140,8 @@ set nowritebackup
 
 " Do make a persistent undo file
 if v:version >= 703
-        set undofile
-        set undodir=~/.vim/tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
+  set undofile
+  set undodir=~/.vim/tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
 endif
 
 " Color in column 80
@@ -164,9 +157,9 @@ let loaded_matchparen = 1
 " When opening a file, start with the cursor wherever it was last time you
 " edited it.
 autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \  exe 'normal! g`"zvzz' |
-  \ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \  exe 'normal! g`"zvzz' |
+      \ endif
 
 " Don't care about trailing whitespace in markdown files
 autocmd FileType markdown setlocal nolist
@@ -249,12 +242,17 @@ Plug 'vim-scripts/vimspell'
 Plug 'rgarver/Kwbd.vim'
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
 Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
-Plug 'reedes/vim-colors-pencil'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'vimwiki/vimwiki'
+Plug 'mattn/calendar-vim'
+Plug 'vim-scripts/Drawit'
 call plug#end()
 
 set t_Co=256
-colorscheme pencil
+colorscheme space-vim-dark
 set background=dark
+
+let g:airline_theme="laederon"
 
 " CycleColor on F11/F12
 nnoremap <F12> :CycleColorNext<CR>
@@ -307,3 +305,34 @@ let g:neocomplete#enable_at_startup=1
 let g:neocomplete#data_directory='~/.vim/cache/neocomplete'
 
 au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
+
+" Kwbd with Q
+nnoremap <silent> Q <Plug>Kwbd<CR>
+
+let g:vimwiki_list = [{
+  \ 'path': '~/Dropbox/wiki',
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md',
+  \ 'nested_syntaxes': {
+  \   'ruby': 'ruby',
+  \   'c++': 'cpp',
+  \   'bash': 'sh'
+  \ }
+  \ }]
+" Via http://blog.mague.com/?p=602
+function! ToggleCalendar()
+  execute ":Calendar"
+  if exists("g:calendar_open")
+    if g:calendar_open == 1
+      execute "q"
+      unlet g:calendar_open
+    else
+      g:calendar_open = 1
+    end
+  else
+    let g:calendar_open = 1
+  end
+endfunction
+nnoremap <leader>c :call ToggleCalendar()<CR>
+let g:vimwiki_h1_headers = 1
+let g:vimwiki_h1_cb_checked = 1
