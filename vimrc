@@ -10,6 +10,7 @@ filetype plugin indent on
 
 " Enable syntax highlighting
 syntax enable
+set omnifunc=syntaxcomplete#Complete
 
 " When you start a new line, use the same indentation as the previous line
 " instead of starting from the very beginning
@@ -21,17 +22,26 @@ set hidden
 " Make the backspace key behave normally
 set backspace=indent,eol,start
 
-" Show commands as you type them
-set showcmd
-
-" Add a basic statubar
-set laststatus=2
-
 " Show line numbers
 set number
 
+" Relative line numbers
+set relativenumber
+
 " Show percentage scrolled and current line/column
 set ruler
+
+" Show commands as you type them
+set showcmd
+
+" Add statusline
+set laststatus=2
+
+" Quiet any completion messages / bells
+set shortmess+=c
+
+" Set leader to comma
+let mapleader=","
 
 " No bells, ever
 set noerrorbells
@@ -42,96 +52,53 @@ set novisualbell
 set modeline
 set modelines=5
 
-" Make Y yank to the end of the current line.
-nnoremap Y y$
+" Show whitespace
+set list
+set listchars=tab:│\ ,trail:•,extends:»,precedes:«
 
-" Store lots of undo information
-set undolevels=1000
+" When opening a file, start with the cursor wherever it was last time it was edited
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \  exe 'normal! g`"zvzz' |
+      \ endif
 
-" Remember more command and search history
-set history=1000
+" Scroll to show at least two lines on all edges
+set scrolloff=2
+set sidescrolloff=2
 
-" The I-forgot-to-sudo fix
+" Strip trailing whitespace on <Leader>w
+nnoremap <Leader>w :%s/\s\+$//g<CR>
+
+"""""""""""
+" Papercuts
+"""""""""""
+
+:command! WQ wq
+:command! Wq wq
+:command! W w
+:command! Q q
 cmap w!! w !sudo tee % >/dev/null
-
-" Tabs are vim's default behavior, but if you want to use spaces instead of tabs:
-set expandtab
-
-" Use 2-space 'tabs' by default:
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-
-" C-like indentation blah blah
-set smartindent
-
-" Use Ctrl-<direction> to navigate between splits
-map <silent> <c-k> :wincmd k<CR>
-map <silent> <c-j> :wincmd j<CR>
-map <silent> <c-h> :wincmd h<CR>
-map <silent> <c-l> :wincmd l<CR>
-
+nnoremap Y y$
 " Make cursor move as expected inside wrapped lines:
 nnoremap j gj
 nnoremap k gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
-
-" Set leader to comma
-let mapleader=","
-
-" Keep messages displayed to a minimum length and avoid scrolling in message
-" outputs (avoid the 'press a key' prompts)
-set shortmess=at
-
-" Show whitespace
-set list
-set listchars=tab:│\ ,trail:•,extends:»,precedes:«
-
-" Better tab complete menu
-set wildmenu
-set completeopt=longest,menuone,preview
-
-" wildmenu behavior default
-set wildmode=list:full
-
-" Ignore case when tab-completing filenames
-set wildignorecase
-
-" Ignore case for tab-completing commands, use smartcase for searches
-set ignorecase
-nnoremap / /\C
-
-" Don't tab complete files with these extensions
-set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.jpg,*.png,*.gif,*.jpeg,*.bmp,*.tif,*.tiff,*.psd,*.hg,*.git,*.svn,*.exe,*.dll,*.pyc,*.DS_Store
-
-" Fairy dust to make vim work faster over a laggy connection
-set ttyfast
-
-" Highlight matched searches so they're easier to see
-set hlsearch
-
-" ...and use double spacebar to clear any highlighted searches
-nnoremap <silent> <Space><Space> :nohlsearch<CR>
-
-" Start matching searches as soon as you start typing
-set incsearch
-
-" Just don't even show me command shell mode
-nnoremap q: <nop>
-
-" I never use command lookup, so disable it
+" Disable command lookup
 nnoremap K k
 vnoremap K k
+" Disable command shell mode
+nnoremap q: <nop>
+" Maintain visual select after indentation
+vnoremap < <gv
+vnoremap > >gv
 
-" Relative line numbers
-set relativenumber
+""""""""""""""""
+" History & Undo
+""""""""""""""""
 
-" When I write/quit sloppily, do what I mean, not what I say
-:command! WQ wq
-:command! Wq wq
-:command! W w
-:command! Q q
+set undolevels=1000
+set history=1000
 
 " Don't make swap files
 set noswapfile
@@ -144,53 +111,43 @@ if v:version >= 703
   set undodir=~/.vim/tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
 endif
 
-" Color in column 80
-set colorcolumn=80
-" Colorcolumn should be light black
-highlight ColorColumn ctermbg=7
-" ...and for gvim/mvim:
-highlight ColorColumn guibg=Black
+""""""""""""
+" Formatting
+""""""""""""
+set smartindent
 
-" Don't use matchparen.vim to highlight matching parents
-let loaded_matchparen = 1
+" Tabs, spaces
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
-" When opening a file, start with the cursor wherever it was last time you
-" edited it.
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \  exe 'normal! g`"zvzz' |
-      \ endif
+"""""""""""""""""""
+" Windows & Buffers
+"""""""""""""""""""
 
-" Don't care about trailing whitespace in markdown files
-autocmd FileType markdown setlocal nolist
-
-" Autoreload vimrc when written
-autocmd! bufwritepost vimrc source ~/.vimrc
-
-" Detect node files w/out extension
-autocmd BufNewFile,BufRead * if match(getline(1),"node") >= 0 | set filetype=javascript | endif
+" Use Ctrl-<direction> to navigate between splits
+map <silent> <c-k> :wincmd k<CR>
+map <silent> <c-j> :wincmd j<CR>
+map <silent> <c-h> :wincmd h<CR>
+map <silent> <c-l> :wincmd l<CR>
 
 " Cycle through open buffers using the left and right arrow keys
 nnoremap <left> :bprev<CR>
 nnoremap <right> :bnext<CR>
 
-" Maintain visual select after indentation
-vnoremap < <gv
-vnoremap > >gv
+""""""""""""""""""
+" Search, wildmenu
+""""""""""""""""""
 
-" Make sure there are at least two lines of padding above and below your
-" cursor. This causes the window to scroll when you get within close two lines
-" of the bottom of the screen.
-set scrolloff=2
-" Also keep two columns to the left and right when scrolling horizontally
-set sidescrolloff=2
+" Highlight matched searches so they're easier to see
+set hlsearch
+" Use double spacebar to clear any highlighted searches
+nnoremap <silent> <Space><Space> :nohlsearch<CR>
+" Start matching searches as soon as you start typing
+set incsearch
 
-" Use F2 to toggle paste mode instead of having to type ':set paste' whenever
-" you need to paste some crap in
-set pastetoggle=<F2>
-
-" This set of mappings makes the current search result always appear in the
-" middle of the screen:
+" Make the current search result always appear in the middle of the screen:
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -198,73 +155,25 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-" Strip trailing whitespace on <Leader>w
-:nnoremap <Leader>w :%s/\s\+$//g<CR>
+" Ignore case for tab-completing commands, use smartcase for searches
+set ignorecase
+nnoremap / /\C
 
-" Gvim settings
-set guioptions-=m
-set guioptions-=r
-set guioptions-=L
-if has("gui_gtk2")
-  set guifont=Roboto\ Mono\ \for\Powerline\ 11
-endif
+" Better tab complete menu
+set wildmenu
+set completeopt+=menuone,noselect
+set completeopt-=preview
 
-" Plugin time
-call plug#begin('~/.vim/plugged')
+" wildmenu behavior default
+set wildmode=list:full
 
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-surround'
-Plug 'tmhedberg/matchit'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdcommenter'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'mileszs/ack.vim'
-Plug 'tyok/nerdtree-ack'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'kien/ctrlp.vim'
-Plug 'majutsushi/tagbar'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'vim-scripts/CycleColor'
-Plug 'godlygeek/csapprox'
-Plug 'lilydjwg/colorizer'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/vimspell'
-Plug 'rgarver/Kwbd.vim'
-Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
-Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
-Plug 'liuchengxu/space-vim-dark'
-Plug 'vimwiki/vimwiki'
-Plug 'mattn/calendar-vim'
-Plug 'vim-scripts/Drawit'
-call plug#end()
+" Ignore case for wildmenu completion
+set wildignorecase
 
-set t_Co=256
-colorscheme space-vim-dark
-set background=dark
+" Don't tab complete files with these extensions
+set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.jpg,*.png,*.gif,*.jpeg,*.bmp,*.tif,*.tiff,*.psd,*.hg,*.git,*.svn,*.exe,*.dll,*.pyc,*.DS_Store
 
-let g:airline_theme="laederon"
-
-" CycleColor on F11/F12
-nnoremap <F12> :CycleColorNext<CR>
-nnoremap <F11> :CycleColorPrev<CR>
-
-" Don't hate
-set mouse=a
-
-" Tagbar toggle mapping
-map <Leader>t :TagbarToggle<CR>
-
-" ag > ack > grep
+" Use ag or ack instead of grep
 if executable('ack')
   set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
   set grepformat=%f:%l:%c:%m
@@ -274,65 +183,163 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-" Gitgutter settings
+""""""""""""""
+" Per-filetype
+""""""""""""""
+
+" Don't care about trailing whitespace in markdown files
+autocmd FileType markdown setlocal nolist
+
+"""""""""""""""
+" Gvim settings
+"""""""""""""""
+
+set guioptions-=m
+set guioptions-=r
+set guioptions-=L
+set mouse=a
+
+"""""""""""""
+" Plugin init
+"""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+" Colors
+Plug 'godlygeek/csapprox'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'nanotech/jellybeans.vim'
+Plug 'reedes/vim-colors-pencil'
+Plug 'vim-scripts/CycleColor'
+" Plug 'flazz/vim-colorschemes'
+
+" Completion, snippets
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
+"Plug 'Rip-Rip/clang_complete'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Language-specific
+Plug 'fatih/vim-go'
+Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
+Plug 'plasticboy/vim-markdown'
+" Plug 'tpope/vim-markdown'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'tpope/vim-fireplace'
+Plug 'vhdirk/vim-cmake'
+Plug 'danchoi/ri.vim'
+
+" Libraries
+Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
+
+" Formatting
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Raimondi/delimitMate'
+Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/vimspell'
+Plug 'scrooloose/nerdcommenter'
+
+" Syntax highlighting
+Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
+
+" Files and buffers
+Plug 'vim-scripts/a.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree'
+
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+
+" Search
+Plug 'mileszs/ack.vim'
+Plug 'tyok/nerdtree-ack'
+
+" Misc
+Plug 'mattn/calendar-vim'
+Plug 'rgarver/Kwbd.vim'
+Plug 'tpope/vim-rhubarb'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/Drawit'
+Plug 'zenbro/mirror.vim'
+
+call plug#end()
+
+""""""""
+" Colors
+""""""""
+set background=dark
+set t_Co=256
+
+colorscheme jellybeans
+let g:jellybeans_use_term_italics=1
+let g:jellybeans_use_term_background_color=1
+
+" disable background color erase so non-text backgrounds aren't messed up
+set t_ut=
+
+""""""""""""
+" Statusline
+""""""""""""
+let g:airline_theme='raven'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline#extensions#tabline#left_alt_sep='¦'
+
+"""""
+" Git
+"""""
 let g:gitgutter_max_signs=100000
 " Revert the current hunk:
 nmap <Leader>rh <Plug>GitGutterRevertHunk
 " git add the current hunk:
 nmap <Leader>sh <Plug>GitGutterStageHunk
 " skip to the next hunk:
-nmap <Leader>hh <Plug>GitGutterNextHunk
+nmap <Leader>jj <Plug>GitGutterNextHunk
 " skip to the previous hunk:
-nmap <Leader>lh <Plug>GitGutterPrevHunk
+nmap <Leader>kk <Plug>GitGutterPrevHunk
 
-" Airline configuration
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep=' '
-let g:airline#extensions#tabline#left_alt_sep='¦'
-
-" Show git status in nerdtree
+""""""""""
+" NERDtree
+""""""""""
 let g:NERDTreeShowGitStatus = 1
 
-" Completion config, via bling.vim by bling
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-let g:neosnippet#enable_snipmate_compatibility=1
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#data_directory='~/.vim/cache/neocomplete'
+""""""""""""
+" Completion
+""""""""""""
+let g:SuperTabDefaultCompletionType = "context"
 
-au FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
+""""""""""
+" Snippets
+""""""""""
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets,~/.dotfiles/vim/snippets'
 
+""""""
+" Tags
+""""""
+map <Leader>t :TagbarToggle<CR>
+
+""""""""
+" Syntax
+""""""""
+let g:syntastic_cpp_cflags = '-Wall -std=c++14'
+
+"""""""""""""""""""
+" Windows & Buffers
+"""""""""""""""""""
 " Kwbd with Q
 nnoremap <silent> Q <Plug>Kwbd<CR>
 
-let g:vimwiki_list = [{
-  \ 'path': '~/Dropbox/wiki',
-  \ 'syntax': 'markdown',
-  \ 'ext': '.md',
-  \ 'nested_syntaxes': {
-  \   'ruby': 'ruby',
-  \   'c++': 'cpp',
-  \   'bash': 'sh'
-  \ }
-  \ }]
-" Via http://blog.mague.com/?p=602
-function! ToggleCalendar()
-  execute ":Calendar"
-  if exists("g:calendar_open")
-    if g:calendar_open == 1
-      execute "q"
-      unlet g:calendar_open
-    else
-      g:calendar_open = 1
-    end
-  else
-    let g:calendar_open = 1
-  end
-endfunction
-nnoremap <leader>c :call ToggleCalendar()<CR>
-let g:vimwiki_h1_headers = 1
-let g:vimwiki_h1_cb_checked = 1
+" Load local overrides
+so ~/.vimrc.local

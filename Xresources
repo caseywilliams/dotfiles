@@ -1,13 +1,15 @@
 URxvt.font: xft:Roboto Mono for Powerline:pizelsize=11
 URxvt.letterSpace:-1
 URxvt.lsp: 500
-Xft.dpi: 96
+
+! Font Settings
+Xft.autohint: true
 Xft.antialias: true
 Xft.hinting: true
-Xft.hintstyle: hintfull
+Xft.hintstyle: hintslight
 Xft.rgba: rgba
 
-! General config
+URxvt.perl-lib: $HOME/.config/urxvt-scripts
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 URxvt.internalBorder: 5
@@ -17,23 +19,23 @@ URxvt.metaSendsEscape: true
 URxvt.utf8: 2
 URxvt.scrollBar: false
 URxvt.cursorUnderline: false
-URxvt.cursorColor: #aaaaaa
+URxvt.cursorColor: #eeeeee
 URxvt.borderLess: false
 URxvt.depth:32
 !URxvt.background: #000000
 URxvt.background: rgba:1d1d/1d1d/1d1d/efef
 
-! Perl stuff
-URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size
-URxvt.url-launcher: /usr/bin/firefox
+! Perl Stuff
+URxvt.perl-ext-common: default,clipboard,matcher,tabbed,font-size,fullscreen,vtwheel
+URxvt.url-launcher: /usr/bin/chromium-browser
 URxvt.matcher.button: 1
 URxvt.clipboard.copycmd: xsel --input --clipboard
 URxvt.clipboard.pastecmd: xsel --output --clipboard
 URxvt.clipboard.autocopy: true
-URxvt.keysym.M-C-c perl:clipboard:copy
-URxvt.keysym.M-C-v perl:clipboard:paste
-URxvt.keysym.Control-Shift-Up: perl:font-size:increase
-URxvt.keysym.Control-Shift-Down: perl:font-size:decrease
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.C-slash:  perl:font-size:show
+URxvt.keysym.F11: perl:fullscreen:switch
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
@@ -44,28 +46,28 @@ URxvt.tabbed.tab-fg: 7
 URxvt.tabbed.tab-bg: 0
 
 !black
-URxvt.color0: #343434
-URxvt.color8: #737373
+URxvt.color0: #333333
+URxvt.color8: #606060
 !red
-URxvt.color1: #c26b46
-URxvt.color9: #ef7b47
+URxvt.color1: #ff6a37
+URxvt.color9: #ff9672
 !green
-URxvt.color2: #7cbf9e
-URxvt.color10: #a2d9b1
+URxvt.color2: #4f8c61
+URxvt.color10: #8ec586
 !yellow
-URxvt.color3: #8a7a63
-URxvt.color11: #beb090
+URxvt.color3: #ffae38
+URxvt.color11: #f6c781
 !blue
-URxvt.color4: #646b80
-URxvt.color12: #7b96b2
+URxvt.color4: #5171d0
+URxvt.color12: #a9baec
 !magenta
 URxvt.color5: #ff5879
 URxvt.color13: #ff99a1
 !cyan
-URxvt.color6: #44b5b1
-URxvt.color14: #9ed9d8
+URxvt.color6: #0e8e9a
+URxvt.color14: #5ec7d4
 !white
-URxvt.color7: #ccccc6
-URxvt.color15: #e7dede
+URxvt.color7: #b6b7bb
+URxvt.color15: #feffff
 
-URxvt.foreground: #e8e8e8
+URxvt.foreground: #b6b7bb
