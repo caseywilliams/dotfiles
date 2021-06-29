@@ -62,6 +62,9 @@ autocmd BufReadPost *
       \  exe 'normal! g`"zvzz' |
       \ endif
 
+" JSON with comments
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
 " Scroll to show at least two lines on all edges
 set scrolloff=2
 set sidescrolloff=2
@@ -205,39 +208,31 @@ set mouse=a
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Colors
 Plug 'godlygeek/csapprox'
 Plug 'liuchengxu/space-vim-dark'
-Plug 'nanotech/jellybeans.vim'
 Plug 'reedes/vim-colors-pencil'
 Plug 'vim-scripts/CycleColor'
-" Plug 'flazz/vim-colorschemes'
-
-" Completion, snippets
-Plug 'ervandew/supertab'
-Plug 'honza/vim-snippets'
-"Plug 'Rip-Rip/clang_complete'
 
 " Git
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 " Language-specific
 Plug 'fatih/vim-go'
-Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
 Plug 'plasticboy/vim-markdown'
-" Plug 'tpope/vim-markdown'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'tpope/vim-fireplace'
-Plug 'vhdirk/vim-cmake'
-Plug 'danchoi/ri.vim'
+Plug 'puremourning/vimspector'
 
 " Libraries
 Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
 
-" Formatting
+" Syntax highlighting
+Plug 'sheerun/vim-polyglot'
+
+" Typing & formatting
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tmhedberg/matchit'
@@ -245,33 +240,16 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vimspell'
 Plug 'scrooloose/nerdcommenter'
 
-" Syntax highlighting
-Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
-
-" Files and buffers
-Plug 'vim-scripts/a.vim'
+" Files & buffers
 Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/nerdtree'
-
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
-
-" Search
-Plug 'mileszs/ack.vim'
-Plug 'tyok/nerdtree-ack'
-
-" Misc
-Plug 'mattn/calendar-vim'
 Plug 'rgarver/Kwbd.vim'
-Plug 'tpope/vim-rhubarb'
+
+" UI
+Plug 'vim-scripts/Drawit'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/Drawit'
-Plug 'zenbro/mirror.vim'
+Plug 'vim-scripts/confirm-quit'
 
 call plug#end()
 
@@ -279,11 +257,9 @@ call plug#end()
 " Colors
 """"""""
 set background=dark
-set t_Co=256
+" set t_Co=256
 
-colorscheme jellybeans
-let g:jellybeans_use_term_italics=1
-let g:jellybeans_use_term_background_color=1
+colorscheme space-vim-dark
 
 " disable background color erase so non-text backgrounds aren't messed up
 set t_ut=
@@ -310,36 +286,221 @@ nmap <Leader>jj <Plug>GitGutterNextHunk
 " skip to the previous hunk:
 nmap <Leader>kk <Plug>GitGutterPrevHunk
 
-""""""""""
-" NERDtree
-""""""""""
-let g:NERDTreeShowGitStatus = 1
-
-""""""""""""
-" Completion
-""""""""""""
-let g:SuperTabDefaultCompletionType = "context"
-
-""""""""""
-" Snippets
-""""""""""
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets,~/.dotfiles/vim/snippets'
-
-""""""
-" Tags
-""""""
-map <Leader>t :TagbarToggle<CR>
-
-""""""""
-" Syntax
-""""""""
-let g:syntastic_cpp_cflags = '-Wall -std=c++14'
-
 """""""""""""""""""
 " Windows & Buffers
 """""""""""""""""""
-" Kwbd with Q
-nnoremap <silent> Q <Plug>Kwbd<CR>
+" Delete buffer but keep window on ctrl-q
+map <silent> <c-q> <Plug>Kwbd<CR>
 
-" Load local overrides
-so ~/.vimrc.local
+" Cycle through open buffers using the left and right arrow keys
+nnoremap <left> :bprev<CR>
+nnoremap <right> :bnext<CR>
+
+""""""""""""""""""
+" Search, wildmenu
+""""""""""""""""""
+
+" Highlight matched searches so they're easier to see
+set hlsearch
+" Use double spacebar to clear any highlighted searches
+nnoremap <silent> <Space><Space> :nohlsearch<CR>
+" Start matching searches as soon as you start typing
+set incsearch
+
+" Make the current search result always appear in the middle of the screen:
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+" Ignore case for tab-completing commands, use smartcase for searches
+set ignorecase
+nnoremap / /\C
+
+" Better tab complete menu
+set wildmenu
+set completeopt+=menuone,noselect
+set completeopt-=preview
+
+" wildmenu behavior default
+set wildmode=list:full
+
+" Ignore case for wildmenu completion
+set wildignorecase
+
+" Don't tab complete files with these extensions
+set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.jpg,*.png,*.gif,*.jpeg,*.bmp,*.tif,*.tiff,*.psd,*.hg,*.git,*.svn,*.exe,*.dll,*.pyc,*.DS_Store
+
+" Use ag or ack instead of grep
+if executable('ack')
+  set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
+  set grepformat=%f:%l:%c:%m
+endif
+
+""""""""""""""
+" Per-filetype
+""""""""""""""
+
+" Don't care about trailing whitespace in markdown files
+autocmd FileType markdown setlocal nolist
+
+"""""""""""""""
+" Gvim settings
+"""""""""""""""
+
+set guioptions-=m
+set guioptions-=r
+set guioptions-=L
+set mouse=a
+
+"""""""""""""
+" Plugin init
+"""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+" Colors
+Plug 'godlygeek/csapprox'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'reedes/vim-colors-pencil'
+Plug 'vim-scripts/CycleColor'
+Plug 'nokobear/vim-colorscheme-edit'
+
+" Completion, snippets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Language-specific
+Plug 'fatih/vim-go'
+Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
+Plug 'plasticboy/vim-markdown'
+Plug 'puremourning/vimspector'
+Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
+
+" Formatting
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Raimondi/delimitMate'
+Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/vimspell'
+Plug 'scrooloose/nerdcommenter'
+
+" Syntax highlighting
+Plug 'sheerun/vim-polyglot'
+
+" Files and buffers
+Plug 'vim-scripts/a.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Misc
+Plug 'rgarver/Kwbd.vim'
+Plug 'tpope/vim-rhubarb'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/Drawit'
+Plug 'vim-scripts/confirm-quit'
+call plug#end()
+
+let g:coc_global_extensions = [
+      \'coc-css',
+      \'coc-emmet',
+      \'coc-eslint',
+      \'coc-explorer',
+      \'coc-fzf-preview',
+      \'coc-git',
+      \'coc-go',
+      \'coc-html-css-support',
+      \'coc-json',
+      \'coc-lists',
+      \'coc-sh',
+      \'coc-snippets',
+      \'coc-sql',
+      \'coc-tsserver',
+      \'coc-yaml',
+      \]
+
+""""""""
+" Colors
+""""""""
+set background=dark
+set t_Co=256
+
+colorscheme space-vim-dark
+
+" disable background color erase so non-text backgrounds aren't messed up
+set t_ut=
+
+""""""""""""
+" Statusline
+""""""""""""
+let g:airline_theme='raven'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline#extensions#tabline#left_alt_sep='¦'
+
+"""""
+" Git
+"""""
+let g:gitgutter_max_signs=100000
+" Revert the current hunk:
+nmap <Leader>hr <Plug>GitGutterRevertHunk
+" git add the current hunk:
+nmap <Leader>hs <Plug>GitGutterStageHunk
+" skip to the next hunk:
+nmap <Leader>hn <Plug>GitGutterNextHunk
+" skip to the previous hunk:
+nmap <Leader>hp <Plug>GitGutterPrevHunk
+
+" for coc-snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+let g:ctrlp_custom_ignore='node_modules\|DS_Store\|git'
+let g:ctrlp_cmd='CtrlPMixed'
+
+let g:vimspector_enable_mappings = 'HUMAN'
+
+:nnoremap <space>e :CocCommand explorer<CR>
+
+"nmap <silent> <Leader>tta command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+"nmap <silent> <Leader>tt command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+"nmap <silent> <Leader>ji command! -nargs=0 JestInit :call  CocAction('runCommand', 'jest.init', ['%'])
+
+" Init jest
+nnoremap <silent> <Leader>ti :call CocAction('runCommand', 'jest.init')<CR>
+
+" Run jest for current test
+nnoremap <silent> <Leader>tt :call CocAction('runCommand', 'jest.singleTest')<CR>
+
+" Run jest for current file
+nnoremap <silent> <Leader>tf :call CocAction('runCommand', 'jest.fileTest')<CR>
+
+" Toggle terminal
+nmap <silent> <Leader>T <Plug>(coc-terminal-toggle)
