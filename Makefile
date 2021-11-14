@@ -1,8 +1,8 @@
 bash_files := ~/.bashrc ~/.bashrc.local ~/.bashrc.secret
-vim_files := ~/.vimrc ~/.vimrc.local
+vim_files := ~/.vim/coc-settings.json ~/.vimrc ~/.vimrc.local
 
 user_files := bashrc.local bashrc.secret vimrc.local
-linked_files := vimrc bashrc
+linked_files := vim/coc-settings.json vimrc bashrc
 
 .PHONY: $(vim_files) $(bash_files) $(linked_files) $(user_files)
 
@@ -21,6 +21,7 @@ back_up: $(vim_files) $(bash_files)
 
 # Back up and install dotfiles
 install: back_up
+	mkdir -p ~/.vim
 	# Link each dotfile
 	$(foreach filename,$(linked_files),ln -sf $(PWD)/$(filename) $(HOME)/.$(filename);)
 	# Copy examples of local configs

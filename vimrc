@@ -44,9 +44,7 @@ set shortmess+=c
 let mapleader=","
 
 " No bells, ever
-set noerrorbells
-set t_vb=
-set novisualbell
+set belloff=all
 
 " Let vim look for settings in modelines
 set modeline
@@ -72,10 +70,10 @@ set sidescrolloff=2
 " Strip trailing whitespace on <Leader>w
 nnoremap <Leader>w :%s/\s\+$//g<CR>
 
-"""""""""""
-" Papercuts
-"""""""""""
+" Don't care about trailing whitespace in markdown files
+autocmd FileType markdown setlocal nolist
 
+" Convenience mappings
 :command! WQ wq
 :command! Wq wq
 :command! W w
@@ -186,83 +184,14 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-""""""""""""""
-" Per-filetype
-""""""""""""""
-
-" Don't care about trailing whitespace in markdown files
-autocmd FileType markdown setlocal nolist
-
-"""""""""""""""
-" Gvim settings
-"""""""""""""""
+"""""
+" GUI
+"""""
 
 set guioptions-=m
 set guioptions-=r
 set guioptions-=L
 set mouse=a
-
-"""""""""""""
-" Plugin init
-"""""""""""""
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Colors
-Plug 'godlygeek/csapprox'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'reedes/vim-colors-pencil'
-Plug 'vim-scripts/CycleColor'
-
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
-
-" Language-specific
-Plug 'fatih/vim-go'
-Plug 'plasticboy/vim-markdown'
-Plug 'puremourning/vimspector'
-
-" Libraries
-Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
-
-" Syntax highlighting
-Plug 'sheerun/vim-polyglot'
-
-" Typing & formatting
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Raimondi/delimitMate'
-Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-surround'
-Plug 'vim-scripts/vimspell'
-Plug 'scrooloose/nerdcommenter'
-
-" Files & buffers
-Plug 'kien/ctrlp.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'rgarver/Kwbd.vim'
-
-" UI
-Plug 'vim-scripts/Drawit'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/confirm-quit'
-
-call plug#end()
-
-""""""""
-" Colors
-""""""""
-set background=dark
-" set t_Co=256
-
-colorscheme space-vim-dark
-
-" disable background color erase so non-text backgrounds aren't messed up
-set t_ut=
 
 """"""""""""
 " Statusline
@@ -278,19 +207,19 @@ let g:airline#extensions#tabline#left_alt_sep='¦'
 """""
 let g:gitgutter_max_signs=100000
 " Revert the current hunk:
-nmap <Leader>rh <Plug>GitGutterRevertHunk
+nmap <Leader>rh <Plug>(GitGutterRevertHunk)
 " git add the current hunk:
-nmap <Leader>sh <Plug>GitGutterStageHunk
+nmap <Leader>sh <Plug>(GitGutterStageHunk)
 " skip to the next hunk:
-nmap <Leader>jj <Plug>GitGutterNextHunk
+nmap <Leader>jj <Plug>(GitGutterNextHunk)
 " skip to the previous hunk:
-nmap <Leader>kk <Plug>GitGutterPrevHunk
+nmap <Leader>kk <Plug>(GitGutterPrevHunk)
 
 """""""""""""""""""
 " Windows & Buffers
 """""""""""""""""""
 " Delete buffer but keep window on ctrl-q
-map <silent> <c-q> <Plug>Kwbd<CR>
+map <silent> <c-q> :Kwbd<CR>
 
 " Cycle through open buffers using the left and right arrow keys
 nnoremap <left> :bprev<CR>
@@ -364,52 +293,34 @@ set mouse=a
 """""""""""""
 
 call plug#begin('~/.vim/plugged')
-
-" Colors
-Plug 'godlygeek/csapprox'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'reedes/vim-colors-pencil'
-Plug 'vim-scripts/CycleColor'
-Plug 'nokobear/vim-colorscheme-edit'
-
-" Completion, snippets
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" Language-specific
-Plug 'fatih/vim-go'
 Plug 'docunext/closetag.vim', {'for':['html','xml','erb']}
-Plug 'plasticboy/vim-markdown'
-Plug 'puremourning/vimspector'
-Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
-
-" Formatting
 Plug 'editorconfig/editorconfig-vim'
-Plug 'Raimondi/delimitMate'
-Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-surround'
-Plug 'vim-scripts/vimspell'
-Plug 'scrooloose/nerdcommenter'
-
-" Syntax highlighting
-Plug 'sheerun/vim-polyglot'
-
-" Files and buffers
-Plug 'vim-scripts/a.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'fatih/vim-go'
+Plug 'godlygeek/csapprox'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Misc
+Plug 'kien/ctrlp.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','coffee','typescript']}
+Plug 'puremourning/vimspector'
+Plug 'Raimondi/delimitMate'
+Plug 'reedes/vim-colors-pencil'
 Plug 'rgarver/Kwbd.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
+Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/CycleColor'
 Plug 'vim-scripts/Drawit'
-Plug 'vim-scripts/confirm-quit'
+Plug 'vim-scripts/vimspell'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 let g:coc_global_extensions = [
@@ -417,6 +328,7 @@ let g:coc_global_extensions = [
       \'coc-emmet',
       \'coc-eslint',
       \'coc-explorer',
+      \'coc-fzf-preview',
       \'coc-fzf-preview',
       \'coc-git',
       \'coc-go',
@@ -426,6 +338,8 @@ let g:coc_global_extensions = [
       \'coc-sh',
       \'coc-snippets',
       \'coc-sql',
+      \'coc-terminal',
+      \'coc-tsserver',
       \'coc-tsserver',
       \'coc-yaml',
       \]
@@ -450,9 +364,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep=' '
 let g:airline#extensions#tabline#left_alt_sep='¦'
 
-"""""
-" Git
-"""""
+""""""""""""""""
+" Plugin configs
+""""""""""""""""
 let g:gitgutter_max_signs=100000
 " Revert the current hunk:
 nmap <Leader>hr <Plug>GitGutterRevertHunk
@@ -463,17 +377,21 @@ nmap <Leader>hn <Plug>GitGutterNextHunk
 " skip to the previous hunk:
 nmap <Leader>hp <Plug>GitGutterPrevHunk
 
-" for coc-snippets
+let g:ctrlp_custom_ignore='node_modules\|DS_Store\|git'
+let g:ctrlp_cmd='CtrlPMixed'
+let g:vimspector_enable_mappings = 'HUMAN'
+
+" CoC Settings
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 let g:coc_snippet_next = '<tab>'
 
@@ -481,26 +399,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-let g:ctrlp_custom_ignore='node_modules\|DS_Store\|git'
-let g:ctrlp_cmd='CtrlPMixed'
-
-let g:vimspector_enable_mappings = 'HUMAN'
-
-:nnoremap <space>e :CocCommand explorer<CR>
-
-"nmap <silent> <Leader>tta command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
-"nmap <silent> <Leader>tt command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
-"nmap <silent> <Leader>ji command! -nargs=0 JestInit :call  CocAction('runCommand', 'jest.init', ['%'])
-
-" Init jest
-nnoremap <silent> <Leader>ti :call CocAction('runCommand', 'jest.init')<CR>
-
-" Run jest for current test
-nnoremap <silent> <Leader>tt :call CocAction('runCommand', 'jest.singleTest')<CR>
-
-" Run jest for current file
-nnoremap <silent> <Leader>tf :call CocAction('runCommand', 'jest.fileTest')<CR>
-
-" Toggle terminal
 nmap <silent> <Leader>T <Plug>(coc-terminal-toggle)
+nnoremap <space>e :CocCommand explorer<CR>
+nmap <space>f :CocCommand explorer --preset floating<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif

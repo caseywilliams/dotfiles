@@ -5,7 +5,39 @@
 # Paths
 #######
 
-export PATH="$HOME/bin:./node_modules/.bin:$HOME/.dotfiles/bin:$PATH"
+export GOPATH=$HOME/.local/src/go
+export GOBIN="$GOPATH/bin"
+export ANDROID_SDK_HOME="$HOME/Android/Sdk"
+export PATH="$HOME/bin:$HOME/.nodenv/bin:$HOME/.nodenv/shims:./node_modules/.bin:$HOME/.dotfiles/bin:$ANDROID_SDK_HOME/cmdline-tools/latest/bin:$GOBIN:$PATH"
+
+#########
+# History
+#########
+HISTSIZE=10000
+HISTFILESIZE=$HISTSIZE
+HISTCONTROL=ignorespace:ignoredups
+shopt -s histappend
+shopt -s cmdhist
+shopt -s lithist
+shopt -s histreedit
+shopt -s histverify
+shopt -s extglob
+
+_bash_history_sync() {
+    builtin history -a         #1
+    HISTFILESIZE=$HISTSIZE     #2
+}
+
+history() {
+    _bash_history_sync
+    builtin history "$@"
+}
+
+PROMPT_COMMAND=_bash_history_sync
+
+# Instead of using control-s for flow control, pass it to readline to enable
+# forward incremental search
+[[ $- == *i* ]] && stty stop ""
 
 ######################
 # Default applications
@@ -33,10 +65,13 @@ export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 # Aliases, functions
 ####################
 
+alias please=sudo
+alias pls=sudo
+alias ag="ag -Q"
 alias ..="cd .."
 alias ...="cd ../.."
 alias be="bundle exec"
-alias bi="bundle install --path .bundle"
+alias bi="bundle install"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias g="git"
@@ -90,8 +125,10 @@ done
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [ -d $HOME/.nodenv ]; then
-  export PATH="$HOME/.nodenv/bin:$PATH"
   eval "$(nodenv init -)"
+  source <(npm completion)
+  export NODE_VERSION="$(nodenv version-name)"
+  export PATH="$HOME/.nodenv/bin:$HOME/.nodenv/versions/$NODE_VERSION/bin:$PATH"
 fi
 
 if [ -d $HOME/.rbenv ]; then
@@ -172,3 +209,7 @@ prompt_git="\[\033[38;5;15m\]\$(git_prompt)"
 prompt_char="\[$(tput bold)\]$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 
 export PS1="${prompt_username}${prompt_at}${prompt_hostname} ${prompt_path}\$(prompt_last_status)${prompt_time}\$(git_prompt)\n${prompt_char}"
+
+if [ -f ~/.bashrc.local ]; then
+  source ~/.bashrc.local
+fi
